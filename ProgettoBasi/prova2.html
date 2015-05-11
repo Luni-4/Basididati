@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="bar2.css">
+</head>
+<body>
+<section class="cform">
+  <article class="title">
+    <p>Registrazione</p>
+  </article>
+  <form name="registrazione" action="createAccount.php" method=GET>
+	  <section class="form">
+		<p>Nuovo username</p>
+		<input type="text" name="username">
+		  <p>Email</p>
+		<input type="text" name="email">
+		  <p>Scegli una password</p>
+		<input type="text" name="pass">
+		  <p>Ripeti la password</p>
+		<input type="text" name="passConfirm">
+		  <p>Scegli una categoria di interesse</p>
+		<select>
+			  <option value="categoria1">Cucina</option>
+			  <option value="categoria2">Sport</option>
+			  <option value="categoria3">Informatica</option>
+			  <option value="categoria4">Animali</option>
+		</select>
+		<div class="btn">
+		  <p>Invia registrazione</p>
+		<input type="submit" value="Invia">  
+		</div>
+	  </section>
+  </form>
+</section>  
+  
+</body>
+</html>

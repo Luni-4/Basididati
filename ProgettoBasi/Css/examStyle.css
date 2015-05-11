@@ -16,7 +16,11 @@
 		-webkit-animation-duration: 5s; /* Chrome, Safari, Opera */
 		-webkit-animation-timing-function: linear;
 		-webkit-animation-fill-mode: forwards;/*mi fermo all'ultimo fotogramma non ritornando all'inizio dell'animazione*/
-	
+		
+		animation-name: ghost_box; /* Modzilla */
+		animation-duration: 5s;
+		animation-timing-function: linear;
+		animation-fill-mode: forwards;/*dovrebbe funzionare, ma notepad non me lo sottolinea come sintassi riservata*/
 }
 @-webkit-keyframes ghost_box {
 	0%   {height:200;top:100px;}
