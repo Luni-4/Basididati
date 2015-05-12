@@ -4,7 +4,8 @@
 	left: 25%;/*dipende dalla grandezza dell'img che scegliamo oppure abbiamo un metodo migliore per centrare?*/
 	z-index:-1;
 }
-	.box {
+
+.box {
 		position:absolute;/*devo scrivere position absolute per poter mettere poi left e top*/
 		left:25%;
 		top: 100px;
@@ -12,16 +13,20 @@
 		height: 600px;
 		z-index:1;
 		background-color: white;
-		-webkit-animation-name: ghost_box; /* Chrome, Safari, Opera */
-		-webkit-animation-duration: 5s; /* Chrome, Safari, Opera */
+		
+		/* Chrome, Safari, Opera */
+		-webkit-animation-name: ghost_box; 
+		-webkit-animation-duration: 5s; 
 		-webkit-animation-timing-function: linear;
 		-webkit-animation-fill-mode: forwards;/*mi fermo all'ultimo fotogramma non ritornando all'inizio dell'animazione*/
 		
-		animation-name: ghost_box; /* Modzilla */
-		animation-duration: 5s;
+		/* Mozilla e IE>9 */
+		animation-name: ghost_box; 
+		animation-duration: 5s;		
 		animation-timing-function: linear;
-		animation-fill-mode: forwards;/*dovrebbe funzionare, ma notepad non me lo sottolinea come sintassi riservata*/
+		animation-fill-mode: forwards; /*dovrebbe funzionare, ma notepad non me lo sottolinea come sintassi riservata*/
 }
+/* Chrome, Safari, Opera */
 @-webkit-keyframes ghost_box {
 	0%   {height:200;top:100px;}
     25%  {height:150;top:300px;}
@@ -29,8 +34,21 @@
     75%  {height:50;top:700px;}
     100% {height:0;top:800px;}
 }
+
+/* Mozilla e IE>9 */
+@keyframes ghost_box {
+	0%   {height:200;top:100px;}
+    25%  {height:150;top:300px;}
+    50%  {height:100;top:500px;}
+    75%  {height:50;top:700px;}
+    100% {height:0;top:800px;}
+}
+
+
+
+
  .top_login {
-	background-image:url("login.jpg");
+	background-image:url("../Immagini/login.jpg");
 	background-color:#66FFCC;
 	padding-top: 15px;
     padding-right: 50px;
