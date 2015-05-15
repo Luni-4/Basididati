@@ -17,6 +17,7 @@
 				case 1:
 					echo"<h1>Email non trovata</h1>\n";
 					echo"<h3>La email inserita non è corretta</h3>\n";
+				break;
 				case 2:
 					echo"<h1>Password non valida</h1>\n";
 					echo"<h3>La password inserita non è corretta</h3>\n";
