@@ -1,7 +1,7 @@
 /*The Google Font*/
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:600);
 body{
-  background:url("watercolorBackground.jpg");
+  background:url("../Immagini/watercolorBackground.jpg");
   background-size: cover;
   font-family: 'Open Sans', sans-serif; 
   margin:50px auto;

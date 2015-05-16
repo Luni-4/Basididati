@@ -1,5 +1,5 @@
 <?php /*questo file php si occupa solo del check e di reindirizzare alla pag corretta: o al login da rifare o fa entrare nel servizio*/
-
+/*CON I CAMBIAMENTI IN JS: QUESTA PAGINA FA CONTROLLO DI ESISTENZA NEL DB*/
 $user= $_POST["user"];
 $pass = $_POST["pass"];
 $email = $_POST["email"];
