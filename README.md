@@ -14,3 +14,6 @@ Modifiche apportate (17/05/2015 ->Alice):
 - login.js : ho accorpato la funzione che avevamo in checkField.js-> possiamo togliere questo file
 - paginaRegistrazione-> terminata, indentata, messo js e funzionante, cambiato alcuni campi input, css directory cambiata e funzionante
 - schemaLogico e schemaRistrutturato finiti con tutte le modifiche
+
+N.B: - dubbio esistenziale: il testo delle varie domande e rispsote, lo consideriamo attributo nel db o cosa?
+	 - ho un problema a scrivere topic1 e topic2, dai un occhiata al .sql
