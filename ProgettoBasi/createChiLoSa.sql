@@ -1,82 +1,102 @@
 CREATE TABLE Utente
-	(username VARCHAR(20) PRIMARY KEY,
+	(nome VARCHAR(20) PRIMARY KEY,
 	 email VARCHAR(20) NOT NULL UNIQUE,
+	 password VARCHAR(16) NOT NULL,
 	 residenza VARCHAR(20), --opzionale
 	 tipo VARCHAR(7) NOT NULL, -- il tipo  è normale/vip-> max_length=7
-	 data_nascita DATE,
+	 datanascita DATE
 	 );
 
 CREATE TABLE Categoria
-	(nome VARCHAR(20) PRIMARY KEY,
+	(nomec VARCHAR(20) PRIMARY KEY
 	);
 
 CREATE TABLE Sottocategoria
 	(
-	nome VARCHAR(20) UNIQUE,
-	categoria REFERENCES Categoria(nome)
+	nomesc VARCHAR(20),
+	categoria REFERENCES Categoria(nomec)
 				ON DELETE RESTRICT
 				ON UPDATE RESTRICT, --non permetto cambiamenti alle categoria per evitare grandi effetti cascata, guarda sotto
-	PRIMARY KEY(nome,categoria),
+	PRIMARY KEY(nomesc,categoria)
 	);
 	
 CREATE TABLE Preferenza
-	(utente VARCHAR(20) REFERENCES Utente(username)
+	(utentep VARCHAR(20) REFERENCES Utente(nome)
 						ON DELETE CASCADE --se tolgo un utente dal db la sua preferenza scompare
 						ON UPDATE CASCADE,
-	categoria VARCHAR(20) REFERENCES Categoria(nome)
+	categoriap VARCHAR(20) REFERENCES Categoria(nomec)
 						ON DELETE RESTRICT --non permetto di cambiare nome alla categoria, avrei troppi effetti cascata in altri punti del progetto
 						ON UPDATE RESTRICT, --es se un utente ha messo preferenza "cucina" io non posso cambiare il nome alla categoria e mettergli "pettinare_giraffe"
-	PRIMARY KEY (utente,categoria),
+	PRIMARY KEY (utentep,categoriap)
 	);
 	
-CREATE TABLE Domandaaperta
-	(utente VARCHAR(20) REFERENCES Utente(utente)
+CREATE TABLE Domandaperta
+	(utented VARCHAR(20) REFERENCES Utente(nome)
 						ON DELETE SET NULL --ci teniamo anche le domande senza utente per fare una sorta di history?
 						ON UPDATE CASCADE, --per esempio se l'utente ha bisogno di cambiare o username o pass
-	data DATETIME DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY (utente,data),
+	datad DATETIME DEFAULT CURRENT_TIMESTAMP,
+	testo TEXT NOT NULL,
+	imgurl VARCHAR(50),
+	imgtesto TEXT,
+	chiusa BOOLEAN DEFAULT FALSE,
+	PRIMARY KEY (utented,datad)
 	);
 
 CREATE TABLE Sondaggio
-	(utente VARCHAR(20) REFERENCES Utente(utente)
+	(utentes VARCHAR(20) REFERENCES Utente(nome)
 						ON DELETE SET NULL --ci teniamo anche le domande senza utente per fare una sorta di history?
 						ON UPDATE CASCADE, --per esempio se l'utente ha bisogno di cambiare o username o pass
-	data DATETIME DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY (utente,data),
+	datas DATETIME DEFAULT CURRENT_TIMESTAMP,
+	testo TEXT NOT NULL,
+	imgurl VARCHAR(50),
+	imgtesto TEXT,
+	chiusa BOOLEAN DEFAULT FALSE,
+	PRIMARY KEY (utentes,datas)
 	);
 	
 CREATE TABLE Topic1
-		(categoria VARCHAR(20) references Categoria(nome)
+		(categoriat1 VARCHAR(20) references Categoria(nomec)
 						ON DELETE RESTRICT
 						ON UPDATE RESTRICT,
-		domanda_ap --non capisco come riferirmi a una chiave primaria composta da piu attributi
-		PRIMARY KEY (categoria,domanda_ap),
+		nomet1 VARCHAR(20),
+		datat1 DATETIME,
+		FOREIGN KEY(nomet1,datat1) references Domandaperta(utented,datad)  --non capisco come riferirmi a una chiave primaria composta da piu attributi
+		PRIMARY KEY (categoriat1,nomet1,datat1)
 		);
 		
 CREATE TABLE Topic2
-		(categoria VARCHAR(20) references Categoria(nome)
+		(categoriat2 VARCHAR(20) references Categoria(nomec)
 						ON DELETE RESTRICT
 						ON UPDATE RESTRICT,
-		sondaggio --non capisco come riferirmi a una chiave primaria composta da piu attributi
-		PRIMARY KEY (categoria,sondaggio),
+		nomet2 VARCHAR(20),
+		datat2 DATETIME,
+		FOREIGN KEY(nomet2,datat2) references Sondaggio(utentes,datas)  --non capisco come riferirmi a una chiave primaria composta da piu attributi
+		PRIMARY KEY (categoriat2,nomet2,datat2)
 		);
 		
 CREATE TABLE Rispostapredefinita
-		(utente REFERENCES Utente(nome)
+		(utenterispostap REFERENCES Utente(nome)
 				ON DELETE SET NULL
 				ON UPDATE CASCADE,
-		anonimo BOOLEAN DEFAULT FALSE,
-		sondaggio --stesso problema
-		PRIMARY KEY (utente,sondaggio),
+		 utentesondaggio VARCHAR(20), 
+	     datasondaggio DATETIME,
+		 anonimo BOOLEAN DEFAULT FALSE,
+		 testorisp VARCHAR(30) NOT NULL,
+		 FOREIGN KEY(utentesondaggio,datasondaggio) references Sondaggio(utentes,datas),
+		 PRIMARY KEY(utenterispostap,utentesondaggio,datasondaggio)
 		);
 		
-CREATE TABLE Rispostaaperta
-		(utente REFERENCES Utente(nome)
+CREATE TABLE Rispostaperta
+		(utenterispostaperta REFERENCES Utente(nome)
 				ON DELETE SET NULL
 				ON UPDATE CASCADE,
-		anonimo BOOLEAN DEFAULT FALSE,
-		domanda_ap --stesso problema
-		votoPos LONG DEFAULT 0,
-		votoNeg LONG DEFAULT 0,
-		PRIMARY KEY (utente,domanda_ap),
+		 datara DATETIME DEFAULT CURRENT_TIMESTAMP,
+		 testora TEXT NOT NULL,
+		 anonimo BOOLEAN DEFAULT FALSE,		
+		 votopos LONG DEFAULT 0,
+		 votoneg LONG DEFAULT 0,
+		 utentedomandaperta VARCHAR(20), 
+	     datadomandaperta DATETIME,
+		 FOREIGN KEY(utentedomandaperta,datadomandaperta) references Domandaperta(utented,datad),
+		 PRIMARY KEY(utenterispostaperta,datara)
 		);
