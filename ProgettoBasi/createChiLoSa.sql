@@ -32,19 +32,19 @@ CREATE TABLE Preferenza
 	
 CREATE TABLE Domandaperta
 	(utented VARCHAR(20) REFERENCES Utente(nome)
-						ON DELETE SET NULL --ci teniamo anche le domande senza utente per fare una sorta di history?
+						ON DELETE SET DEFAULT Utente(nome)+'cancellato' --ci teniamo anche le domande senza utente per fare una sorta di history?
 						ON UPDATE CASCADE, --per esempio se l'utente ha bisogno di cambiare o username o pass
 	datad DATETIME DEFAULT CURRENT_TIMESTAMP,
 	testo TEXT NOT NULL,
 	imgurl VARCHAR(50),
 	imgtesto TEXT,
-	chiusa BOOLEAN DEFAULT FALSE,
+	chiusa BOOLEAN DEFAULT FALSE,-- quando un utente viene eliminato questo campo diventa true.
 	PRIMARY KEY (utented,datad)
 	);
 
 CREATE TABLE Sondaggio
 	(utentes VARCHAR(20) REFERENCES Utente(nome)
-						ON DELETE SET NULL --ci teniamo anche le domande senza utente per fare una sorta di history?
+						ON DELETE SET DEFAULT utentes+'cancellato' --ci teniamo anche le domande senza utente per fare una sorta di history?
 						ON UPDATE CASCADE, --per esempio se l'utente ha bisogno di cambiare o username o pass
 	datas DATETIME DEFAULT CURRENT_TIMESTAMP,
 	testo TEXT NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE Topic1
 						ON UPDATE RESTRICT,
 		nomet1 VARCHAR(20),
 		datat1 DATETIME,
-		FOREIGN KEY(nomet1,datat1) references Domandaperta(utented,datad)  --non capisco come riferirmi a una chiave primaria composta da piu attributi
+		FOREIGN KEY(nomet1,datat1) references Domandaperta(utented,datad) 
 		PRIMARY KEY (categoriat1,nomet1,datat1)
 		);
 		
@@ -70,7 +70,7 @@ CREATE TABLE Topic2
 						ON UPDATE RESTRICT,
 		nomet2 VARCHAR(20),
 		datat2 DATETIME,
-		FOREIGN KEY(nomet2,datat2) references Sondaggio(utentes,datas)  --non capisco come riferirmi a una chiave primaria composta da piu attributi
+		FOREIGN KEY(nomet2,datat2) references Sondaggio(utentes,datas) 
 		PRIMARY KEY (categoriat2,nomet2,datat2)
 		);
 		
