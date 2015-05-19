@@ -34,27 +34,27 @@ CREATE TABLE Preferenza
 	);
 	
 CREATE TABLE Domandaperta
-	(idd int NOT NULL AUTO_INCREMENT,						
-	datad DATETIME DEFAULT CURRENT_TIMESTAMP,
+	(idd serial NOT NULL,						
+	datad TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	testo TEXT NOT NULL,
 	imgurl VARCHAR(50),
 	imgtesto TEXT,
 	chiusa BOOLEAN DEFAULT FALSE,-- quando un utente viene eliminato questo campo diventa true.
 	nome VARCHAR(20) REFERENCES Utente(nome)
-				ON DELETE SET NULL,
+				ON DELETE SET NULL
 				ON UPDATE CASCADE,
 	PRIMARY KEY (idd)
 	);
 
 CREATE TABLE Sondaggio
-	(idd int NOT NULL AUTO_INCREMENT,						
-	datad DATETIME DEFAULT CURRENT_TIMESTAMP,
+	(idd serial NOT NULL,						
+	datad TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	testo TEXT NOT NULL,
 	imgurl VARCHAR(50),
 	imgtesto TEXT,
 	chiusa BOOLEAN DEFAULT FALSE,-- quando un utente viene eliminato questo campo diventa true.
 	nome VARCHAR(20) REFERENCES Utente(nome)
-				     ON DELETE NULL,
+				     ON DELETE SET NULL
 				     ON UPDATE CASCADE,
 	PRIMARY KEY (idd)
 	);
@@ -63,7 +63,7 @@ CREATE TABLE Topic1
 		(nomec VARCHAR(20) NOT NULL REFERENCES Categoria(nomec)
 						   ON DELETE RESTRICT
 						   ON UPDATE RESTRICT,
-		idd int NOT NULL REFERENCES Domandaperta(idd)
+		idd integer NOT NULL REFERENCES Domandaperta(idd)
 	                     ON DELETE CASCADE,				       
 		PRIMARY KEY (nomec,idd)
 		);
@@ -72,35 +72,35 @@ CREATE TABLE Topic2
 		(nomec VARCHAR(20) NOT NULL REFERENCES Categoria(nomec)
 						   ON DELETE RESTRICT
 						   ON UPDATE RESTRICT,
-		idd int NOT NULL REFERENCES Sondaggio(idd)
+		idd integer NOT NULL REFERENCES Sondaggio(idd)
 	                     ON DELETE CASCADE,				       
 		PRIMARY KEY (nomec,idd)
 		);
 		
 CREATE TABLE Rispostapredefinita
-		(idr int NOT NULL AUTO_INCREMENT,	
+		(idr serial NOT NULL,	
 		 anonimo BOOLEAN DEFAULT FALSE,
-		 datar DATETIME DEFAULT CURRENT_TIMESTAMP,
+		 datar TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 		 testorisp TEXT NOT NULL,	
 		 nome VARCHAR(20) REFERENCES Utente(nome)
-				ON DELETE SET NULL,
+				ON DELETE SET NULL
 				ON UPDATE CASCADE,
-		idd int NOT NULL REFERENCES Sondaggio(idd)
+		idd integer NOT NULL REFERENCES Sondaggio(idd)
 	                     ON DELETE CASCADE,			 
 		 PRIMARY KEY(idr)
 		);
 		
 CREATE TABLE Rispostaperta
-		(idr int NOT NULL AUTO_INCREMENT,	
+		(idr serial NOT NULL,	
 		 anonimo BOOLEAN DEFAULT FALSE,
-		 datar DATETIME DEFAULT CURRENT_TIMESTAMP,
+		 datar TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 		 testorisp TEXT NOT NULL,
-		 votopositivo LONG DEFAULT 0,
-		 votonegativo LONG DEFAULT 0,
+		 votopositivo integer DEFAULT 0,
+		 votonegativo integer DEFAULT 0,
 		 nome VARCHAR(20) REFERENCES Utente(nome)
-				ON DELETE SET NULL,
+				ON DELETE SET NULL
 				ON UPDATE CASCADE,
-		idd int NOT NULL REFERENCES Domandaperta(idd)
+		idd integer NOT NULL REFERENCES Domandaperta(idd)
 	                     ON DELETE CASCADE,			 
 		 PRIMARY KEY(idr)		
 		);
