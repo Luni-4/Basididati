@@ -40,7 +40,7 @@ CREATE TABLE Domandaperta
 	imgurl VARCHAR(50),
 	imgtesto TEXT,
 	chiusa BOOLEAN DEFAULT FALSE,-- quando un utente viene eliminato questo campo diventa true.
-	nome VARCHAR(20) REFERENCES Utente(nome)
+	nome VARCHAR(20) DEFAULT NULL REFERENCES Utente(nome)
 				ON DELETE SET NULL
 				ON UPDATE CASCADE,
 	PRIMARY KEY (idd)
@@ -53,7 +53,7 @@ CREATE TABLE Sondaggio
 	imgurl VARCHAR(50),
 	imgtesto TEXT,
 	chiusa BOOLEAN DEFAULT FALSE,-- quando un utente viene eliminato questo campo diventa true.
-	nome VARCHAR(20) REFERENCES Utente(nome)
+	nome VARCHAR(20) DEFAULT NULL REFERENCES Utente(nome)
 				     ON DELETE SET NULL
 				     ON UPDATE CASCADE,
 	PRIMARY KEY (idd)
@@ -82,7 +82,7 @@ CREATE TABLE Rispostapredefinita
 		 anonimo BOOLEAN DEFAULT FALSE,
 		 datar TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 		 testorisp TEXT NOT NULL,	
-		 nome VARCHAR(20) REFERENCES Utente(nome)
+		 nome VARCHAR(20) DEFAULT NULL REFERENCES Utente(nome)
 				ON DELETE SET NULL
 				ON UPDATE CASCADE,
 		idd integer NOT NULL REFERENCES Sondaggio(idd)
@@ -97,7 +97,7 @@ CREATE TABLE Rispostaperta
 		 testorisp TEXT NOT NULL,
 		 votopositivo integer DEFAULT 0,
 		 votonegativo integer DEFAULT 0,
-		 nome VARCHAR(20) REFERENCES Utente(nome)
+		 nome VARCHAR(20) DEFAULT NULL REFERENCES Utente(nome)
 				ON DELETE SET NULL
 				ON UPDATE CASCADE,
 		idd integer NOT NULL REFERENCES Domandaperta(idd)
