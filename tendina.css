@@ -1,0 +1,79 @@
+#menu 
+{
+	background: url(tendsfo.png) repeat-x scroll;
+	height: 28px; 			
+}
+
+#menu ul 
+{
+  list-style: none;
+}
+
+#navigation
+{
+    width: 100%;
+    margin-left: -40px;
+}
+
+#navigation > li 
+{
+	float: left;
+	margin: 0 20px 0 20px;
+	height: 100%;	
+	width: 70px;							
+}
+
+#navigation > li:hover 
+{
+   background-color: #520000;   
+}
+
+#navigation > li > a 
+{
+	float: left;
+    text-decoration: none;
+    text-align: center;
+    font-family: Corbel,Tahoma,Arial;
+    color: #FFF;    
+    height: 100%;   
+    width: 100%;      
+    font-size: 16pt;      
+}
+
+#navigation li ul 
+{
+	background-color: #462626;
+	clear: both;
+	position: absolute;
+	top: -500px;
+	width: 100px;
+	border-left: solid #520000;
+	border-right: solid #520000;
+	border-bottom: solid #520000;
+	margin-left: -50%;	
+}
+
+#navigation li ul li 
+{
+  text-align: center;
+  margin-left: -40%; 
+}
+
+#navigation li ul li:hover
+{
+	background-color: #520000; 
+}
+
+#navigation li ul li > a 
+{
+	text-decoration: none;    
+    font-family: Corbel,Tahoma,Arial;
+    color: #FFF;   
+    font-size: 16pt;    
+}
+
+#navigation li.submenu:hover ul 
+{
+	position: static;	
+    z-index: 1;
+}
