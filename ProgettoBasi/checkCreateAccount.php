@@ -1,6 +1,6 @@
 <?php 
 
-  // Controlli
+  // Controlli (da rifare con serialize e funzioni php)
   if(empty($_POST["username"])){	
 	  Header("Location: paginaRegistrazione.php?message_error=0");
   }elseif(empty($_POST["email"])){
@@ -21,35 +21,21 @@
 	  $passc=$_POST["passConfirm"];
 	  if(trim($pass) != trim($passc))
 		Header("Location: paginaRegistrazione.php?message_error=4&user=$user&email=$email");	
-  }
-  
-  // Residenza e data
-  $residenza=$_POST["residenza"];		
-  
+  }  
 
-  include "dbopen.php"; // apertura database
+  require_once "dbopen.php"; // apertura database
 	
 	// controllo esistenza nel database di utente e email	
 	$queryricerca="SELECT nome FROM utente WHERE nome='$user' AND email='$email'";
 	$ricerca=pg_query($dbconn, $queryricerca) or die("Errore nella query");	
 	
-	
 	// Se utente non esiste aggiunta a database
-	if(pg_num_rows($ricerca) == 0){ 
-		
-		if(empty($_POST["residenza"]) & !empty($_POST["bday"])){
-			$data=$_POST["bday"];
-			$queryinserimento="INSERT INTO utente(nome,email,password,datanascita) VALUES ('$user','$email','$pass','$data')";
-		}elseif(empty($_POST["bday"]) & !empty($_POST["residenza"])){
-			$residenza=$_POST["residenza"];	
-		    $queryinserimento="INSERT INTO utente(nome,email,password,residenza) VALUES ('$user','$email','$pass','$residenza')";
-		}elseif(empty($_POST["bday"]) && empty($_POST["residenza"])){
-			$queryinserimento="INSERT INTO utente(nome,email,password) VALUES ('$user','$email','$pass')";
-		}else{
-			$data=$_POST["bday"];
-			$residenza=$_POST["residenza"];	
-			$queryinserimento="INSERT INTO utente(nome,email,password,residenza,datanascita) VALUES ('$user','$email','$pass','$residenza','$data')";
-		}
+	if(pg_num_rows($ricerca) == 0)
+	{ 	
+		// Valori e Controllo 
+	    $data=!empty($data) ? "'array('bgday' => serialize($_POST))'" : "NULL";
+	    $residenza=!empty($residenza) ? "'array('residenza' => serialize($_POST))'" : "NULL";
+	    $queryinserimento="INSERT INTO utente(nome,email,password,residenza,datanascita) VALUES ('$user','$email','$pass',$residenza,$data)";	
 		
 		// Lancio query
 		$inserimento=pg_query($dbconn, $queryinserimento) or die("Errore nella query");
@@ -60,11 +46,11 @@
 		$categoria=pg_query($dbconn, $querycategoria) or die("Errore nella query");
 		
 		// Chiusura database e redirect
-        include "dbclose.php"; 
-        Header("Location: login.php?message_error=5");		
+        require_once "dbclose.php"; 
+        Header("Location: paginaRegistrazione.php?message_error=5");		
 	}
 	
 	// Utente esiste già
-	include "dbclose.php";
+	require_once "dbclose.php";
 	Header("Location: paginaRegistrazione.php?message_error=6");
 ?>
