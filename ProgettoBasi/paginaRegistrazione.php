@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="CSS/bar2.css">
+		<link rel="stylesheet" type="text/css" href="Css/bar2.css">
 		<script src="Javascript/login.js"></script>
 	</head>
 	<body>
@@ -25,11 +25,16 @@
 							<input type="text" name="residenza">
 						<p>Scegli una categoria di interesse </br></p>
 						<p>(N.B: potrai cambiare preferenza in un secondo momento)</p>
-						<select>
-							  <option value="categoria1">Cucina</option>
-							  <option value="categoria2">Sport</option>
-							  <option value="categoria3">Informatica</option>
-							  <option value="categoria4">Animali</option>
+						<select name="categ">
+						    <?php
+						         include "dbopen.php";
+								 $querycategorie="SELECT nomec FROM categoria";
+								 $categorie=pg_query($dbconn,$querycategorie) or die("Errore nella query");
+								 while($row=pg_fetch_row($categorie)){
+									 print"<option value=\"$row[0]\">$row[0]</option>\n";
+								 }
+								 include "dblcose.php";
+							?> 
 						</select>
 						<div class="btn">
 						  <p>Invia registrazione</p>

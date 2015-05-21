@@ -1,3 +1,0 @@
-function checkRegistrazione() { 
-	// TODO
-}

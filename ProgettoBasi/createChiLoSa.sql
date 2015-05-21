@@ -2,7 +2,7 @@ CREATE TABLE Utente
 	(nome VARCHAR(20) NOT NULL,
 	 email VARCHAR(20) NOT NULL,
 	 password VARCHAR(16) NOT NULL,
-	 residenza VARCHAR(20), --opzionale
+	 residenza VARCHAR(20) DEFAULT NULL, --opzionale
 	 tipo VARCHAR(7) NOT NULL DEFAULT 'normale', -- il tipo  è normale/vip-> max_length=7
 	 datanascita DATE DEFAULT NULL,
 	 PRIMARY KEY(nome),
