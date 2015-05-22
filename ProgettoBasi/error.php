@@ -41,7 +41,11 @@
 				case 6:
 					echo"<h1>Utente già esistente</h1>\n";
 					echo"<h3>Cambia username o email</h3>\n";
-				break;				
+				break;		
+                case 7:
+				    echo"<h1>Utente non esistente nel dbms</h1>\n";
+					echo"<h3>Inserisci valori corretti</h3>\n";
+                break;	                			
 				default:
 					echo"Errore nel sistema\n";
 		   } 

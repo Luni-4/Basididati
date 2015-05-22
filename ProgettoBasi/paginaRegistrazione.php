@@ -30,8 +30,8 @@
 						         include "dbopen.php";
 								 $querycategorie="SELECT nomec FROM categoria";
 								 $categorie=pg_query($dbconn,$querycategorie) or die("Errore nella query");
-								 while($row=pg_fetch_row($categorie)){
-									 print"<option value=\"$row[0]\">$row[0]</option>\n";
+								 while($row=pg_fetch_assoc($categorie)){
+									 print"<option value=".$row['nomec'].">".$row['nomec']."</option>\n";
 								 }
 								 include "dblcose.php";
 							?> 
