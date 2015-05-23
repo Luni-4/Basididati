@@ -1,6 +1,7 @@
 <?php 
-
-  // Controlli (da rifare con serialize e funzioni php)
+  session_start();
+  
+  // Controlli  
   if(empty($_POST["username"])){	
 	  Header("Location: paginaRegistrazione.php?message_error=0");
   }elseif(empty($_POST["email"])){
@@ -26,7 +27,7 @@
   require_once "dbopen.php"; // apertura database
 	
 	// controllo esistenza nel database di utente e email	
-	$queryricerca="SELECT nome FROM utente WHERE nome='$user' AND email='$email'";
+	$queryricerca="SELECT nome FROM utente WHERE nome='$user' OR email='$email'";
 	$ricerca=pg_query($dbconn, $queryricerca) or die("Errore nella query");	
 	
 	// Se utente non esiste aggiunta a database
@@ -43,14 +44,15 @@
 	    // Query inserimento categoria
 		$categ=$_POST["categ"];
 		$querycategoria="INSERT INTO preferenza(nome,nomec) VALUES ('$user','$categ')";
-		$categoria=pg_query($dbconn, $querycategoria) or die("Errore nella query");
+		$categoria=pg_query($dbconn, $querycategoria) or die("Errore nella query");		
 		
-		// Chiusura database e redirect
-        require_once "dbclose.php"; 
-        Header("Location: paginaRegistrazione.php?message_error=5");		
-	}
-	
-	// Utente esiste già
-	require_once "dbclose.php";
-	Header("Location: paginaRegistrazione.php?message_error=6");
+		// Variabili di sessioni che voglio mantenere quando utente si logga
+	    $_SESSION["user"]=$user;
+	    $_SESSION["email"]=$email;	
+		
+		// Mandare a domanda.php
+        Header("Location: domanda.php");		
+	}else	
+	 // Utente esiste già	
+	 Header("Location: paginaRegistrazione.php?message_error=6");
 ?>

@@ -3,14 +3,14 @@ function checkLogin() {
     var nome = document.forms.registrazione.user.value;	
     if (nome.length == 0) {
         alert("Inserire username"); 
-		document.forms.registrazione.username.focus();
+		document.forms.registrazione.user.focus();
 		return false;
     }
 	
     // controllo di field email
     var email = document.forms.registrazione.email.value;
     if (email.length == 0) {
-        alert("Inserire email");
+        alert("Inserire email");	
 		document.forms.registrazione.email.focus();
         return false;
     }
@@ -29,15 +29,15 @@ function checkFormCreateAccount() {
 	// controllo di field username
 	var nome = document.forms.registrazione.username.value;	
     if (nome.length == 0) {
-        alert("Inserire username"); 
-		document.forms.registrazione.username.focus();
+        alert("Inserire username");
+        document.forms.registrazione.username.focus(); 		
 		return false;
     }
 	// controllo di field email
 	var email = document.forms.registrazione.email.value;
     if (email.length == 0) {
         alert("Inserire email");
-		document.forms.registrazione.email.focus();
+        document.forms.registrazione.email.focus();		
         return false;
     }	
 	
@@ -52,7 +52,7 @@ function checkFormCreateAccount() {
 	// Controllo di field passConfirm
 	var passConfirm = document.forms.registrazione.passConfirm.value;
 	if (passConfirm.length == 0) {
-        alert("Inserire conferma password");
+        alert("Inserire conferma password");		
 		document.forms.registrazione.passConfirm.focus();
         return false;
     }
@@ -60,7 +60,7 @@ function checkFormCreateAccount() {
 	// Controllo password
 	if (pass != passConfirm) {
         alert("Le due password non coincidono, controllare uguaglianza");
-		document.forms.registrazione.pass.focus();		
+        document.forms.registrazione.pass.focus();		
         return false;
     }	
 }
