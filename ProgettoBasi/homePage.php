@@ -31,7 +31,11 @@
 					<p class="submit">	Password : </p><input type="password" name="pass" maxlength=16>
 					<p align="center"><input type="submit" value="Accedi"></p>
 				</form>
-		</div> 		    
+		</div> 		   
+		<?php //checkLogin controlla solo che i campi siano pieni, poi necessita del controllo all'interno del db
+			//if (!empty(message_error)) //qui dipende tu come lo vuoi implementare, era tanto per richimare il posto dove mettere gli errori
+			print "<div class='box_error'> ERROR MESSAGE: se lo vuoi fare con var di sessione</p></div>";
+		?>
 	</body>
 </html>
 

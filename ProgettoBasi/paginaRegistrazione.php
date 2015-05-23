@@ -24,22 +24,30 @@
 						<p>Residenza</p>
 							<input type="text" name="residenza">
 						<p>Scegli una categoria di interesse </br></p>
-						<p>(N.B: potrai cambiare preferenza in un secondo momento)</p>
-						<select name="categ">
+						<p>(N.B: Devi scegliere almeno una categoria di interesse)</p>
 						    <?php
 						         include "dbopen.php";
 								 $querycategorie="SELECT nomec FROM categoria";
 								 $categorie=pg_query($dbconn,$querycategorie) or die("Errore nella query");
 								 while($row=pg_fetch_assoc($categorie)){
-									 print"<option value=".$row['nomec'].">".$row['nomec']."</option>\n";
+									print "<input id='checkbox' type='checkbox'>";
+									print "<label for='checkbox'>"."  ".$row["nomec"]."</label><br>";	
+									print "<br>";
+									//while<-generazione delle sottocategorie, da definire il rapporto tra sottocategoria e categoria
 								 }
-								 include "dblcose.php";
+								 include "dbclose.php";
+
 							?> 
-						</select>
 						<div class="btn">
 						  <p>Invia registrazione</p>
 							<input type="submit" value="Invia">  
 						</div>
+						<?php//la posizione non e' perfetta ma stavo collassando al pc :( 
+						//if(isset($_SESSION["message_error"]))//non so come vuoi passare l'errore
+									//if(!empty($_SESSION["message_error"]))
+										print"<div class='box_error'>Messaggio errore </div>";
+						
+						?>
 					</section>
 				</form>
 		</section>  
