@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	    <meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="Css/bar2.css">
 		<script src="Javascript/login.js"></script>
 	</head>
@@ -23,30 +24,30 @@
 							<input type="date" name="bday" max="2004-12-31" min="1899-01-31"><br><br>
 						<p>Residenza</p>
 							<input type="text" name="residenza">
-						<p>Scegli una categoria di interesse </br></p>
+						<p>Scegli una categoria di interesse <br></p>
 						<p>(N.B: Devi scegliere almeno una categoria di interesse)</p>
 						    <?php
 						         include "dbopen.php";
 								 $querycategorie="SELECT nomec FROM categoria";
 								 $categorie=pg_query($dbconn,$querycategorie) or die("Errore nella query");
 								 while($row=pg_fetch_assoc($categorie)){
-									print "<input id='checkbox' type='checkbox'>";
-									print "<label for='checkbox'>"."  ".$row["nomec"]."</label><br>";	
-									print "<br>";
+									print "<input type=\"checkbox\" name=\"categ[]\" value=".$row['nomec'].">";									
+									print "<label for=\"checkbox\">".$row["nomec"]."</label><br><br>";
 									//while<-generazione delle sottocategorie, da definire il rapporto tra sottocategoria e categoria
-								 }
-								 include "dbclose.php";
-
+								 }								 
 							?> 
 						<div class="btn">
 						  <p>Invia registrazione</p>
 							<input type="submit" value="Invia">  
 						</div>
-						<?php//la posizione non e' perfetta ma stavo collassando al pc :( 
-						//if(isset($_SESSION["message_error"]))//non so come vuoi passare l'errore
-									//if(!empty($_SESSION["message_error"]))
-										print"<div class='box_error'>Messaggio errore </div>";
-						
+						<?php 						 
+			              //checkAccount controlla solo che i campi siano pieni, poi necessita del controllo all'interno del db
+			              if(isset($_GET["message_error"])) 
+                          {
+			                 print "<div class=\"box_error\">";
+							 require_once "error.php";
+							 print"</div>";
+						  }					
 						?>
 					</section>
 				</form>

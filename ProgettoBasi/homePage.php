@@ -16,7 +16,6 @@
 			<img src="Immagini/ChiLoSa.png" width="700" height="700">
 		</div>
 		<div class="box"></div> 
-		<?php include "error.php"; ?> 		
 		<div class="box_login">
 				<form name="registrazione" action="checkCredenziali.php" method=POST onsubmit="return checkLogin()">
 					<?php
@@ -32,9 +31,14 @@
 					<p align="center"><input type="submit" value="Accedi"></p>
 				</form>
 		</div> 		   
-		<?php //checkLogin controlla solo che i campi siano pieni, poi necessita del controllo all'interno del db
-			//if (!empty(message_error)) //qui dipende tu come lo vuoi implementare, era tanto per richimare il posto dove mettere gli errori
-			print "<div class='box_error'> ERROR MESSAGE: se lo vuoi fare con var di sessione</p></div>";
+		<?php 
+			//checkLogin controlla solo che i campi siano pieni, poi necessita del controllo all'interno del db
+			if(isset($_GET["message_error"])) 
+            {
+			    print "<div class=\"box_error\">";
+			    require_once "error.php";
+				print"</div>";
+			}
 		?>
 	</body>
 </html>

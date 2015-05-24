@@ -15,12 +15,16 @@
 	  $user=$_POST["username"];
 	  $email=$_POST["email"];
 	  Header("Location: paginaRegistrazione.php?message_error=3&user=$user&email=$email");
-  }else{
+  }elseif(empty($_POST["categ"])){
 	  $user=$_POST["username"];
-	  $email=$_POST["email"];
-	  $pass=$_POST["pass"];
+	  $email=$_POST["email"];	  
+	  Header("Location: paginaRegistrazione.php?message_error=8&user=$user&email=$email");  
+  }else{
+	  $user=trim($_POST["username"]);
+	  $email=trim($_POST["email"]);
+	  $pass=trim($_POST["pass"]);
 	  $passc=$_POST["passConfirm"];
-	  if(trim($pass) != trim($passc))
+	  if($pass != trim($passc))
 		Header("Location: paginaRegistrazione.php?message_error=4&user=$user&email=$email");	
   }  
 
@@ -43,8 +47,10 @@
 		
 	    // Query inserimento categoria
 		$categ=$_POST["categ"];
-		$querycategoria="INSERT INTO preferenza(nome,nomec) VALUES ('$user','$categ')";
-		$categoria=pg_query($dbconn, $querycategoria) or die("Errore nella query");		
+		foreach ($categ as $c){
+		    $querycategoria="INSERT INTO preferenza(nome,nomec) VALUES ('$user','$c')";
+		    $categoria=pg_query($dbconn, $querycategoria) or die("Errore nella query");		
+		}
 		
 		// Variabili di sessioni che voglio mantenere quando utente si logga
 	    $_SESSION["user"]=$user;

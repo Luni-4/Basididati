@@ -9,9 +9,7 @@
 	  6 ---> utente e email esistono gia
 	  x ---> valore di errore che vogliamo */
 	  
-   if(isset($_GET['message_error'])) 
-   {
-		$err=$_GET['message_error'];	
+   		$err=$_GET["message_error"];	
 		switch ($err) 
 		   {
 				case 0:		
@@ -45,9 +43,16 @@
                 case 7:
 				    echo"<h1>Utente non esistente nel dbms</h1>\n";
 					echo"<h3>Inserisci valori corretti</h3>\n";
-                break;	                			
+                break;
+                case 8:
+				    echo"<h1>Bisogna scegliere per forza una categoria</h1>\n";
+					echo"<h3>Effettua una scelta</h3>\n";
+                break;		
+				case 9:
+				    echo"<h1>Accesso fallito</h1>\n";
+					echo"<h3>Errore di sistema, riloggarsi</h3>\n";
+                break;	
 				default:
 					echo"Errore nel sistema\n";
 		   } 
-   }
  ?>       

@@ -13,9 +13,9 @@
 	  Header("Location: homePage.php?message_error=2&user=$user&email=$email");
     }
 	
-	 $user=$_POST["user"];
-	 $email=$_POST["email"];
-	 $pass=$_POST["pass"];
+	 $user=trim($_POST["user"]);
+	 $email=trim($_POST["email"]);
+	 $pass=trim($_POST["pass"]);
 	 
 	require_once "dbopen.php"; // apertura database
 	

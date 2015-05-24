@@ -63,6 +63,16 @@ function checkFormCreateAccount() {
         document.forms.registrazione.pass.focus();		
         return false;
     }	
+	
+	// Controllo categorie		
+	var categ = document.forms.registrazione.elements['categ[]'];	
+	for (var i=0; i<categ.length; i++) {
+        if (categ[i].checked){       
+            return true;
+		}
+     }
+	 alert("Inserisci una categoria");
+	 return false;	 
 }
 
 /* Controllo data<-- non è necessario controllare la data di nascita, è opzionale e i parametri min e max sono settati nell'html
