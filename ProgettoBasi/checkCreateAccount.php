@@ -54,7 +54,6 @@
 		
 		// Variabili di sessioni che voglio mantenere quando utente si logga
 	    $_SESSION["user"]=$user;
-	    $_SESSION["email"]=$email;	
 		
 		// Mandare a domanda.php
         Header("Location: domanda.php");		

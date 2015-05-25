@@ -28,7 +28,6 @@
 		}else{
 			// Variabili di sessioni da mantenere quando utente si logga
 	        $_SESSION["user"]=$user;
-	        $_SESSION["email"]=$email;	
 	
 	        // Invio domanda
 	        Header("Location: paginaRegistrazione.php");	
