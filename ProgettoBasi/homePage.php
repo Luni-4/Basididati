@@ -19,15 +19,15 @@
 		<div class="box_login">
 				<form name="registrazione" action="checkCredenziali.php" method=POST onsubmit="return checkLogin()">
 					<?php
-					    $nome=""; $em="";
+						$nome=NULL; $em=NULL;
 					    if(isset($_GET["user"]))
-							$nome=$_GET["user"];
+							$nome="value=".$_GET["user"];
 						if(isset($_GET["email"]))
-							$em=$_GET["email"];
-						print"<p class=\"submit\">Username : </p><input type=\"text\" name=\"user\" value=\"$nome\" maxlength=\"16\">\n";
-						print"<p class=\"submit\">	Email : </p><input type=\"email\" name=\"email\" value=\"$em\" maxlength=\"16\">\n";					
+							$em="value=".$_GET["email"];
+						print"<p class=\"submit\">Username : </p><input type=\"text\" name=\"user\" $nome maxlength=\"16\">\n";
+						print"<p class=\"submit\">	Email : </p><input type=\"email\" name=\"email\" $em maxlength=\"16\">\n";										
 					?>
-					<p class="submit">	Password : </p><input type="password" name="pass" maxlength=16>
+					<p class="submit">	Password : </p><input type="password" name="pass" value="" maxlength=16>
 					<p align="center"><input type="submit" value="Accedi"></p>
 				</form>
 		</div> 		   

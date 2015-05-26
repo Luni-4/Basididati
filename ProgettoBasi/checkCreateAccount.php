@@ -19,16 +19,30 @@
 	  $user=$_POST["username"];
 	  $email=$_POST["email"];	  
 	  Header("Location: paginaRegistrazione.php?message_error=8&user=$user&email=$email");  
-  }else{
-	  $user=trim($_POST["username"]);
-	  $email=trim($_POST["email"]);
+  }elseif( (empty($_POST["giorno"]) || empty($_POST["mese"]) || empty($_POST["anno"])) && !(empty($_POST["giorno"]) && empty($_POST["mese"]) && empty($_POST["anno"])) ){
+	  $user=$_POST["username"];
+	  $email=$_POST["email"];	  
+	  Header("Location: paginaRegistrazione.php?message_error=10&user=$user&email=$email"); 
+  }elseif(!(empty($_POST["giorno"]) && empty($_POST["mese"]) && empty($_POST["anno"])) && !checkdate($_POST["mese"],$_POST["giorno"],$_POST["anno"])){
+	 $user=$_POST["username"];
+	 $email=$_POST["email"];	  
+	 Header("Location: paginaRegistrazione.php?message_error=11&user=$user&email=$email"); 
+  }else
+  {
 	  $pass=trim($_POST["pass"]);
 	  $passc=$_POST["passConfirm"];
 	  if($pass != trim($passc))
 		Header("Location: paginaRegistrazione.php?message_error=4&user=$user&email=$email");	
-  }  
+	  $user=trim($_POST["username"]);
+	  $email=trim($_POST["email"]);
+	  
+	  // Data
+      $anno=$_POST["anno"];
+	  $mese=$_POST["mese"];
+	  $giorno=$_POST["giorno"];	  
+	  $data=(!empty($giorno) && !empty($mese) && !empty($anno)) ? "'$anno-$mese-$giorno'" : "NULL";
 
-  require_once "dbopen.php"; // apertura database
+    require_once "dbopen.php"; // apertura database
 	
 	// controllo esistenza nel database di utente e email	
 	$queryricerca="SELECT nome FROM utente WHERE nome='$user' OR email='$email'";
@@ -37,8 +51,7 @@
 	// Se utente non esiste aggiunta a database
 	if(pg_num_rows($ricerca) == 0)
 	{ 	
-		// Valori e Controllo 
-	    $data=!empty($data) ? "'array('bgday' => serialize($_POST))'" : "NULL";
+		// Valori e Controllo 	    
 	    $residenza=!empty($residenza) ? "'array('residenza' => serialize($_POST))'" : "NULL";
 	    $queryinserimento="INSERT INTO utente(nome,email,password,residenza,datanascita) VALUES ('$user','$email','$pass',$residenza,$data)";	
 		
@@ -60,4 +73,5 @@
 	}else	
 	 // Utente esiste già	
 	 Header("Location: paginaRegistrazione.php?message_error=6");
+  }
 ?>

@@ -11,17 +11,14 @@ CREATE TABLE Utente
 
 CREATE TABLE Categoria
 	(nomec VARCHAR(20) NOT NULL,
+	 nomesuperc VARCHAR(20) DEFAULT NULL REFERENCES Categoria(nomec)
+						ON DELETE RESTRICT 
+						ON UPDATE RESTRICT, 
 	 PRIMARY KEY(nomec)
 	);
 
-CREATE TABLE Sottocategoria
-	(
-	nomesc VARCHAR(20) NOT NULL,
-	nomec  VARCHAR(20) NOT NULL  REFERENCES Categoria(nomec)
-				ON DELETE RESTRICT
-				ON UPDATE RESTRICT, --non permetto cambiamenti alle categoria per evitare grandi effetti cascata, guarda sotto
-	PRIMARY KEY(nomesc,nomec)
-	);
+
+	
 	
 CREATE TABLE Preferenza
 	(nome VARCHAR(20) NOT NULL REFERENCES Utente(nome)

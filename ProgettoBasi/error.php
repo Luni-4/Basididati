@@ -52,6 +52,14 @@
 				    echo"<h1>Accesso fallito</h1>\n";
 					echo"<h3>Errore di sistema, riloggarsi</h3>\n";
                 break;	
+				case 10:
+				    echo"<h1>La data inserita non è corretta</h1>\n";
+					echo"<h3>Inserire giorno mese anno o non inserire data</h3>\n";
+                break;	
+				case 11:
+				    echo"<h1>La data inserita non esiste</h1>\n";
+					echo"<h3>Inserire una data sensata</h3>\n";
+                break;	
 				default:
 					echo"Errore nel sistema\n";
 		   } 

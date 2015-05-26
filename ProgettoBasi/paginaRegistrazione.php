@@ -12,26 +12,66 @@
 			</article>
 				<form name="registrazione" action="checkCreateAccount.php" method=POST onsubmit="return checkFormCreateAccount()">
 					<section class="form">
-						<p>*Nuovo username</p>
-							<input type="text" name="username">
-						<p>*Email</p>
-							<input type="email" name="email">
+					    <?php
+						  $nome=NULL; $em=NULL;
+					      if(isset($_GET["user"]))
+							$nome="value=".$_GET["user"];
+						  if(isset($_GET["email"]))
+							$em="value=".$_GET["email"];
+						  print"<p>*Nuovo username</p>\n
+						        <input type=\"text\" name=\"username\" $nome maxlength=\"16\">\n";
+						  print"<p>*Email</p>\n
+						          <input type=\"email\" name=\"email\" $em maxlength=\"16\">\n";										
+					    ?>						
 						<p>*Scegli una password</p>
 							<input type="password" name="pass">
 						<p>*Ripeti la password</p>
 							<input type="password" name="passConfirm">
 						<p>Data di Nascita</p>
-							<input type="date" name="bday" max="2004-12-31" min="1899-01-31"><br><br>
+						<table>
+						  <tr>
+						    <td>
+							   <select name="giorno">
+					              <option value=""></option>
+					              <?php 
+							        for($i=1; $i<32; $i++)
+						               print"<option value=\"$i\">$i</option>\n";					              
+					              ?>
+				               </select>
+				            </td>
+				            <td>
+				                <select name="mese">
+					              <option value=""></option>
+					              <?php 
+					                $mesi = array("Gennaio", "Febbraio", "Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre");
+					                for($i=1; $i<13; $i++){
+						              $t=$i-1;
+						              print"<option value=\"$i\">$mesi[$t]</option>\n";
+					                }
+					              ?>
+				                </select>
+				            </td>
+				            <td>
+				                <select name="anno">
+					              <option value=""></option>
+					              <?php 
+					              for($i=1900; $i<2101; $i++)
+						            print"<option value=\"$i\">$i</option>\n";					   
+					              ?>
+				                </select>
+                            </td>
+						  </tr>
+						</table>
 						<p>Residenza</p>
 							<input type="text" name="residenza">
 						<p>Scegli una categoria di interesse <br></p>
 						<p>(N.B: Devi scegliere almeno una categoria di interesse)</p>
 						    <?php
 						         include "dbopen.php";
-								 $querycategorie="SELECT nomec FROM categoria";
+								 $querycategorie="SELECT nomec FROM categoria WHERE nomesuperc IS NULL";
 								 $categorie=pg_query($dbconn,$querycategorie) or die("Errore nella query");
 								 while($row=pg_fetch_assoc($categorie)){
-									print "<input type=\"checkbox\" name=\"categ[]\" value=".$row['nomec'].">";									
+									print "<input type=\"checkbox\" name=\"categ[]\" value=".$row["nomec"].">";									
 									print "<label for=\"checkbox\">".$row["nomec"]."</label><br><br>";
 									//while<-generazione delle sottocategorie, da definire il rapporto tra sottocategoria e categoria
 								 }								 
