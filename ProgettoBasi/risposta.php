@@ -8,7 +8,7 @@
 		$risposta=$_GET["risposta"];
 		$user=$_SESSION["user"];
 		$idd=$_SESSION["idd"];
-		$chiusa=$_SESSION["chiusa"];//col get non va
+		$chiusa=$_SESSION["chiusa"];
 		if($chiusa=='f'){
 		if(isset($_GET["anonimo"]))
 			$anonimo=TRUE;
