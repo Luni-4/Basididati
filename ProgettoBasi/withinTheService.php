@@ -52,7 +52,7 @@
 					{//query per domanda
 							$querydomanda="SELECT nome,testo,datad,idd,nomec
 										   FROM domandaperta NATURAL JOIN topic1
-										   WHERE chiusa='FALSE' AND datad > CURRENT_TIMESTAMP - INTERVAL '7 days' AND topic1.nomec IN (SELECT nomec FROM preferenzaUtente)";   
+										   WHERE datad > CURRENT_TIMESTAMP - INTERVAL '7 days' AND topic1.nomec IN (SELECT nomec FROM preferenzaUtente)";   
 							$query_res=pg_query($dbconn,$querydomanda);
 							if($query_res)
 							{
@@ -64,7 +64,7 @@
 								//query per sondaggio
 								$querysondaggio="SELECT nome,testo,datad,idd,nomec
 											     FROM sondaggio NATURAL JOIN topic2
-											     WHERE chiusa='FALSE' AND datad > CURRENT_TIMESTAMP - INTERVAL '7 days' AND topic2.nomec IN (SELECT nomec FROM preferenzaUtente)";
+											     WHERE datad > CURRENT_TIMESTAMP - INTERVAL '7 days' AND topic2.nomec IN (SELECT nomec FROM preferenzaUtente)";
 								$query_res=pg_query($dbconn,$querysondaggio);
 								if($query_res)
 								{

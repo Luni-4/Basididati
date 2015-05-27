@@ -22,10 +22,11 @@
 						$query_res=pg_query($dbconn,$query); 
 						if($query_res){
 							$message="Votazione inserita con successo!";
-							//header("Location: rispostadomanda.php?message=$message");
+							header("Location: rispostadomanda.php?message=$message");
 						}
 						else{
 							$message="Impossibile dare una votazione9";
+							header("Location: rispostadomanda.php?message=$message");
 						}
 						
 						
@@ -36,10 +37,12 @@
 						$query_res=pg_query($dbconn,$query); 
 						if($query_res){
 							$message="Votazione inserita con successo!";
-							//header("Location: rispostadomanda.php?message=$message");
+							header("Location: rispostadomanda.php?message=$message");
+							
 						}
 						else{
 							$message="Impossibile dare una votazione8";
+							header("Location: rispostadomanda.php?message=$message");
 						}
 					
 					}
@@ -54,6 +57,4 @@
 	}else
 			$message="Impossibile dare una votazione4";
 	
-	
-	print $message;
 	?>
