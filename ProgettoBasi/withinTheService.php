@@ -11,7 +11,7 @@
   
   <body style='background-color:#6F6'>
 			<?php
-			   $_SESSION["user"]='oite'; //da togliere quando tutto sara' unito, implementazione farlocca
+			   $_SESSION["user"]='alice'; //da togliere quando tutto sara' unito, implementazione farlocca
 			   $user=$_SESSION["user"];
 	           if(!isset($_SESSION["user"])){
 		           header("Location: homePage.php?message_error=9");
@@ -21,7 +21,7 @@
 			<div id='cssmenu'>
 			<ul>
 					 <li><a href='#'><span>|Ultime Domande|</span>	</a></li>
-					   <li><a href='#'><span>|Choose category!| ----></span></a></li> <!-- da fare con query la selezione delle categorie-->
+					   <li><a href='#'><span>|Fai una domanda|</span></a></li> <!-- da fare con query la selezione delle categorie-->
 						<li>
 							<select class='style'>
 									<option value='categoria1'>|Cucina|</option>
@@ -77,18 +77,81 @@
 									$message=pg_last_error($dbconn);
 									exit("Errore nella query: ".pg_last_error($dbconn));
 								}
-							
+								//controllo se l'utente e' vip
 								print "</div>";
 								$query="SELECT nome,tipo
 										FROM utente
 										WHERE nome='$user'";
 								$query_res=pg_query($dbconn,$query);
 								if($query_res){
+									
 									print"<div class='left_box'></div>";
 									print"<div class='ghost_left'>";
 									$row=pg_fetch_assoc($query_res);
-									print"Ciao ".$row["nome"]." !<br> Utente di tipo: ".$row["tipo"]."</div>";
+									$typeuser=$row["tipo"];
+									$nomeuser=$row["nome"];
+									if($typeuser=="vip")
 									
+										print"Ciao ".$row["nome"]." !<br> Utente di tipo: ".$typeuser."</div>";
+									else{//query per aggiornare il profilo dell'utente
+										$query="SELECT COUNT(*) AS numrisposte
+												FROM rispostaperta NATURAL JOIN utente
+												WHERE utente.nome='$user'";
+										
+										$query_res=pg_query($dbconn,$query);
+									if($query_res){
+										$row=pg_fetch_assoc($query_res);
+										$numrisposte=$row["numrisposte"];
+										$query="SELECT SUM(votopositivo) AS votipositivi, SUM(votonegativo) AS votinegativi
+												FROM rispostaperta
+												WHERE nome='$user'";
+										
+										$query_res=pg_query($dbconn,$query);
+										if($query_res){
+											$row=pg_fetch_assoc($query_res);
+											$votipositivi=$row["votipositivi"];
+											$votinegativi=$row["votinegativi"];
+											if($numrisposte==2 && $votipositivi>=$votinegativi){
+												$query="UPDATE utente SET tipo='vip' WHERE nome='$user'";//promozione a vip
+												$query_res=pg_query($dbconn,$query);
+												if($query_res){
+												
+													print"Ciao ".$nomeuser." !<br> Utente di tipo: vip </div>";
+												}
+												else{
+													$message=pg_last_error($dbconn);
+													exit("Errore nella query: ".pg_last_error($dbconn));
+												
+												}
+											
+											
+											
+											}else{
+													print"Ciao ".$nomeuser." !<br> Utente di tipo: normal</div>";
+											}
+										}else{
+										
+											$message=pg_last_error($dbconn);
+											exit("Errore nella query: ".pg_last_error($dbconn));
+										
+										
+										}
+									
+									
+									
+									
+									
+									}
+									else{
+										$message=pg_last_error($dbconn);
+										exit("Errore nella query: ".$message);
+									
+									
+									
+									}
+
+									
+									}
 								}
 								else{
 									$message=pg_last_error($dbconn);
