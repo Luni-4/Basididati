@@ -1,22 +1,9 @@
 <?php 
-	session_start(); // Apertura sessione
-	 
-	// Controlli
-	if(empty($_POST["user"])){	
-	    Header("Location: homePage.php?message_error=0");
-    }elseif(empty($_POST["email"])){
-	  $user=$_POST["user"];
-	  Header("Location: homePage.php?message_error=1&user=$user");
-    }elseif(empty($_POST["pass"])){
-	  $user=$_POST["user"];
-	  $email=$_POST["email"];
-	  Header("Location: homePage.php?message_error=2&user=$user&email=$email");
-    }else
-	{
+	session_start(); // Apertura sessione	
 	
-	  $user=trim($_POST["user"]);
-      $email=trim($_POST["email"]);
-	  $pass=trim($_POST["pass"]);
+	 $user=trim($_POST["user"]);
+     $email=trim($_POST["email"]);
+	 $pass=trim($_POST["pass"]);
 	
 	  require_once "dbopen.php"; // apertura database
 	 

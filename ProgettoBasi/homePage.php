@@ -3,8 +3,7 @@
 	<head>
 		<title>ExamChiLoSa</title>
 		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="Css/examStyle.css">
-		<script src="Javascript/login.js"></script>
+		<link rel="stylesheet" type="text/css" href="Css/examStyle.css">	
 	</head>
 	<body>
 		<div class="top_login">
@@ -17,17 +16,17 @@
 		</div>
 		<div class="box"></div> 
 		<div class="box_login">
-				<form name="registrazione" action="checkCredenziali.php" method=POST onsubmit="return checkLogin()">
+				<form name="registrazione" action="checkCredenziali.php" method=POST>
 					<?php
 						$nome=NULL; $em=NULL;
 					    if(isset($_GET["user"]))
 							$nome="value=".$_GET["user"];
 						if(isset($_GET["email"]))
 							$em="value=".$_GET["email"];
-						print"<p class=\"submit\">Username : </p><input type=\"text\" name=\"user\" $nome maxlength=\"16\">\n";
-						print"<p class=\"submit\">	Email : </p><input type=\"email\" name=\"email\" $em maxlength=\"16\">\n";										
+						print"<p class=\"submit\">Username : </p><input type=\"text\" name=\"user\" $nome maxlength=\"16\" required>\n";
+						print"<p class=\"submit\">	Email : </p><input type=\"email\" name=\"email\" $em maxlength=\"16\" required>\n";										
 					?>
-					<p class="submit">	Password : </p><input type="password" name="pass" value="" maxlength=16>
+					<p class="submit">	Password : </p><input type="password" name="pass" maxlength="16" required>
 					<p align="center"><input type="submit" value="Accedi"></p>
 				</form>
 		</div> 		   

@@ -19,14 +19,14 @@
 						  if(isset($_GET["email"]))
 							$em="value=".$_GET["email"];
 						  print"<p>*Nuovo username</p>\n
-						        <input type=\"text\" name=\"username\" $nome maxlength=\"16\">\n";
+						        <input type=\"text\" name=\"username\" $nome maxlength=\"16\" required>\n";
 						  print"<p>*Email</p>\n
-						          <input type=\"email\" name=\"email\" $em maxlength=\"16\">\n";										
+						          <input type=\"email\" name=\"email\" $em maxlength=\"16\" required>\n";										
 					    ?>						
 						<p>*Scegli una password</p>
-							<input type="password" name="pass">
+							<input type="password" name="pass" maxlength="16" required>
 						<p>*Ripeti la password</p>
-							<input type="password" name="passConfirm">
+							<input type="password" name="passConfirm" maxlength="16" required>
 						<p>Data di Nascita</p>
 						<table>
 						  <tr>

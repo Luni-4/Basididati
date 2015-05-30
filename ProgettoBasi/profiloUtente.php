@@ -40,10 +40,11 @@
 			<div class='ghost_box'>					
 			<?php	
 					require_once "dbopen.php";
+					$utente=$_SESSION["utente"];
 					// Query per trovare dati utente
 					$queryutente="SELECT email,residenza,tipo,datanascita
 							      FROM utente
-							      WHERE nome='mik'";
+							      WHERE nome='$utente'";
 					$utentequery=pg_query($dbconn,$queryutente); 						
 					if($queryutente)
 					{
@@ -53,22 +54,7 @@
 						print "<p>Email: ".$ut["email"]."</p>\n";
 						print "<p>Residenza: ".(empty($ut["residenza"]) ? "Non pervenuta" : $ut["residenza"])."</p>\n";
 						print "<p>Sei un utente: ".$ut["tipo"]."</p>\n";
-						print "<p>Data di nascita: ".(empty($ut["datanascita"]) ? "Non pervenuta" : $ut["datanascita"])."</p>\n";
-						//Query per trovare categorie e sottocategorie associate a quell'utente
-						$querycateg="SELECT nomec
-							         FROM preferenza
-								     WHERE nome='mik'";
-						$categquery=pg_query($dbconn,$querycateg);
-						if($categquery)
-						{
-							 	print "<br></p>Ecco le tue categorie:</p>\n";
-								while($ca=pg_fetch_assoc($categquery)){
-									print "<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
-									   ".$ca["nomec"]."</p>\n";
-								}							
-						}
-						else
-                          exit("Errore nella query: ".pg_last_error($dbconn));							
+						print "<p>Data di nascita: ".(empty($ut["datanascita"]) ? "Non pervenuta" : $ut["datanascita"])."</p>\n";												
 					}else
 						exit("Errore nella query: ".pg_last_error($dbconn));								 
 			?>

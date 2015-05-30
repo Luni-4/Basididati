@@ -2,24 +2,11 @@
   session_start();
   
   // Controlli  
-  if(empty($_POST["username"])){	
-	  Header("Location: paginaRegistrazione.php?message_error=0");
-  }elseif(empty($_POST["email"])){
-	  $user=$_POST["username"];
-	  Header("Location: paginaRegistrazione.php?message_error=1&user=$user");
-  }elseif(empty($_POST["pass"])){
-	  $user=$_POST["username"];
-	  $email=$_POST["email"];
-	  Header("Location: paginaRegistrazione.php?message_error=2&user=$user&email=$email");	
-  }elseif(empty($_POST["passConfirm"])){
-	  $user=$_POST["username"];
-	  $email=$_POST["email"];
-	  Header("Location: paginaRegistrazione.php?message_error=3&user=$user&email=$email");
-  }elseif(empty($_POST["categ"])){
+  if(empty($_POST["categ"])){
 	  $user=$_POST["username"];
 	  $email=$_POST["email"];	  
 	  Header("Location: paginaRegistrazione.php?message_error=8&user=$user&email=$email");  
-  }elseif( (empty($_POST["giorno"]) || empty($_POST["mese"]) || empty($_POST["anno"])) && !(empty($_POST["giorno"]) && empty($_POST["mese"]) && empty($_POST["anno"])) ){
+  }elseif((empty($_POST["giorno"]) || empty($_POST["mese"]) || empty($_POST["anno"])) && !(empty($_POST["giorno"]) && empty($_POST["mese"]) && empty($_POST["anno"])) ){
 	  $user=$_POST["username"];
 	  $email=$_POST["email"];	  
 	  Header("Location: paginaRegistrazione.php?message_error=10&user=$user&email=$email"); 
@@ -37,9 +24,9 @@
 	  $email=trim($_POST["email"]);
 	  
 	  // Data
-      $anno=$_POST["anno"];
-	  $mese=$_POST["mese"];
-	  $giorno=$_POST["giorno"];	  
+      $anno=trim($_POST["anno"]);
+	  $mese=trim($_POST["mese"]);
+	  $giorno=trim($_POST["giorno"]);	  
 	  $data=(!empty($giorno) && !empty($mese) && !empty($anno)) ? "'$anno-$mese-$giorno'" : "NULL";
 
     require_once "dbopen.php"; // apertura database
