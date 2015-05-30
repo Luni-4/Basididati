@@ -31,8 +31,9 @@ CREATE TABLE Preferenza
 	);
 	
 CREATE TABLE Domandaperta
-	(idd serial NOT NULL,						
-	datad TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+(   idd serial NOT NULL,	
+    titolo VARCHAR(50) NOT NULL,					
+	datad TIMESTAMP DEFAULT CURRENT_TIMESTAMP,	
 	testo TEXT NOT NULL,
 	imgurl VARCHAR(50),
 	imgtesto TEXT,
@@ -44,7 +45,8 @@ CREATE TABLE Domandaperta
 	);
 
 CREATE TABLE Sondaggio
-	(idd serial NOT NULL,						
+(   idd serial NOT NULL,	
+    titolo VARCHAR(50) NOT NULL,	
 	datad TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	testo TEXT NOT NULL,
 	imgurl VARCHAR(50),
