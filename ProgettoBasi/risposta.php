@@ -11,9 +11,9 @@
 		$chiusa=$_SESSION["chiusa"];
 		if($chiusa=='f'){
 		if(isset($_GET["anonimo"]))
-			$anonimo=TRUE;
+			$anonimo='TRUE';
 		else
-			$anonimo=FALSE;
+			$anonimo='FALSE';
 		$query="INSERT INTO rispostaperta(testorisp,nome,idd,anonimo) VALUES ('$risposta','$user','$idd','$anonimo')";
 		$query_insert=pg_query($dbconn,$query); 
 		if($query_insert)

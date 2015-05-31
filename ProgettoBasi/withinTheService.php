@@ -11,7 +11,7 @@
   
   <body style='background-color:#6F6'>
 			<?php
-			   $_SESSION["user"]='alice'; //da togliere quando tutto sara' unito, implementazione farlocca
+			   $_SESSION["user"]='oite'; //da togliere quando tutto sara' unito, implementazione farlocca
 			   $user=$_SESSION["user"];
 	           if(!isset($_SESSION["user"])){
 		           header("Location: homePage.php?message_error=9");
@@ -21,7 +21,7 @@
 			<div id='cssmenu'>
 			<ul>
 					 <li><a href='#'><span>|Ultime Domande|</span>	</a></li>
-					   <li><a href='#'><span>|Fai una domanda|</span></a></li> <!-- da fare con query la selezione delle categorie-->
+					   <li><a href='faidomanda.php'><span>|Fai una domanda|</span></a></li> <!-- da fare con query la selezione delle categorie-->
 						<li>
 							<select class='style'>
 									<option value='categoria1'>|Cucina|</option>
