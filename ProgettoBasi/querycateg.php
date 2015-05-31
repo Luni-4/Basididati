@@ -14,14 +14,14 @@
    // array che contiene nome supercategorie
    $supercategoria=pg_fetch_all_columns($ca,1);
    
-   // creazione array che conterrà percorso e riempimento
+   // creazione array che conterrà percorso e riempimento,inizialmente vuoto
    $percorso=array_fill(0, $perc, "");
    
   // Trovare percorso per ogni categoria   
   for($i=0; $i<$perc; $i++){	            
 		   $j=$i;
 		   $percorso[$i]=$percorso[$i]."$j";
-		   while(($j=array_search($supercategoria[$j],$categoria)) !== false){	// ciclare finché il valore inserito in vettore supercategoriaè NULL		   
+		   while(($j=array_search($supercategoria[$j],$categoria)) !== false){	// ciclare finché il valore inserito in vettore supercategoriaè NULL, poichè non permettiamo NULL in categoria		   
 			   $percorso[$i]=$percorso[$i]."$j"; // concatenazione di stringhe che indica percorso categorie			 
 		   }// while	   
    } // for
@@ -32,7 +32,7 @@
    for($i=0; $i<$perc; $i++){
 	  $c=0;
 	  $perco=$percorso; // copia array percorso
-	  array_splice($perco, $i, 1); // selezionare e eliminare elemento corrente da vettore	  
+	  array_splice($perco, $i, 1); // selezionare e eliminare elemento corrente da vettore, solo un elemento sarà eliminato	  
       for($j=0; $j<count($perco); $j++){
 	      if((strpos($perco[$j],$percorso[$i])) !== false){ // se  esiste percorso simile dentro vettore eliminarlo
 			  $c++;
