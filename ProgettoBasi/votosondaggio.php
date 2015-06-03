@@ -8,9 +8,9 @@
            FROM rispostapredefinita 
 		   WHERE testorisp='$risposta' AND idd='$idd'
 		   ORDER BY datar";
-		   $query_res=pg_query($dbconn,$query);
-		   if($query_res)
-		   {   
+    $query_res=pg_query($dbconn,$query);
+    if($query_res)
+    {   
 	           while($row=pg_fetch_array($query_res))
 			   {
 				    if($row[1]== 'f')
@@ -21,7 +21,7 @@
 						$nome="Tu";
 					print "$nome $row[2]<br>";						
 			   }
-		   }
-		   else
-		      exit("Errore nella query: ".pg_last_error($dbconn));
+    }
+	else
+		exit("Errore nella query: ".pg_last_error($dbconn));
 ?>
