@@ -5,13 +5,13 @@
 <html>
  <head>
    <meta charset="UTF-8">
-   <title>Domanda</title>
+   <title>PaginaPrincipale</title>
    <link rel="stylesheet" type="text/css" href="Css/styles.css">		
 </head>
   
   <body style='background-color:#6F6'>
 			<?php
-			   $_SESSION["user"]='oite'; //da togliere quando tutto sara' unito, implementazione farlocca
+			   $_SESSION["user"]='mik'; //da togliere quando tutto sara' unito, implementazione farlocca
 			   $user=$_SESSION["user"];
 	           if(!isset($_SESSION["user"])){
 		           header("Location: homePage.php?message_error=9");
@@ -52,7 +52,7 @@
 					if($query_create_view)
 					{       
 				            //query per domanda
-							$querydomanda="SELECT nome,testo,datad,idd,nomec
+							$querydomanda="SELECT nome,titolo,testo,datad,idd,nomec
 										   FROM domandaperta NATURAL JOIN topic1
 										   WHERE datad > CURRENT_TIMESTAMP - INTERVAL '7 days' AND topic1.nomec IN (SELECT nomec FROM preferenzaUtente)";   
 							$query_res=pg_query($dbconn,$querydomanda);
@@ -61,7 +61,7 @@
 							{
 								print "<div style='color:black'>Domande: </div>";
 								while($row=pg_fetch_assoc($query_res)){
-									print "<div style='background-color:#00CC99;width:675px;padding-left:10px'>Utente: ".$row["nome"]." ,Data: ".$row["datad"]." ,Categoria: ".$row["nomec"]."<a href=rispostadomanda.php?idd=$row[idd]>Risposta</a><br></div>";
+									print "<div style='background-color:#00CC99;width:675px;padding-left:10px'>Utente: ".$row["nome"]." ,titolo: ".$row["titolo"]." ,Data: ".$row["datad"]." ,Categoria: ".$row["nomec"]."<a href=rispostadomanda.php?idd=$row[idd]>Risposta</a><br></div>";
 									print "<div style='background-color:white;width:675px;color:black;padding-left:10px'>".$row["testo"]."<br></div>";
 							    }
 							}else{
@@ -69,7 +69,7 @@
 							}
 							
 							//query per sondaggio
-							$querysondaggio="SELECT nome,testo,datad,idd,nomec
+							$querysondaggio="SELECT nome,titolo,testo,datad,idd,nomec
 											 FROM sondaggio NATURAL JOIN topic2
 											 WHERE datad > CURRENT_TIMESTAMP - INTERVAL '7 days' AND topic2.nomec IN (SELECT nomec FROM preferenzaUtente)";
 							$query_res=pg_query($dbconn,$querysondaggio);
@@ -77,8 +77,8 @@
 							{
 									print "<div style='color:black'>Sondaggio: </div>";
 									while($row=pg_fetch_assoc($query_res)){
-										print "<div style='background-color:#00CC99;width:675px;padding-left:10px'>Utente: ".$row["nome"]." ,Data: ".$row["datad"]." ,Categoria: ".$row["nomec"]."<a href=rispostasondaggio.php?idd=$row[idd]>Risposta</a><br></div>";
-										print "<div style='background-color:white;width:675px;color:black;padding-left:10px'>".$row["testo"]."<br></div>";
+										print "<div style='background-color:#00CC99;width:675px;padding-left:10px'>Utente: ".$row["nome"]." ,titolo: ".$row["titolo"]." ,Data: ".$row["datad"]." ,Categoria: ".$row["nomec"]."<a href=rispostasondaggio.php?idd=$row[idd]>Mostra</a><br></div>";
+										//print "<div style='background-color:white;width:675px;color:black;padding-left:10px'>".$row["testo"]."<br></div>"; 
 									}
 							}else{
 									exit("Errore nella query: ".pg_last_error($dbconn));

@@ -39,7 +39,10 @@
 	if(pg_num_rows($ricerca) == 0)
 	{ 	
 		// Valori e Controllo 	    
-	    $residenza=!empty($residenza) ? "'array('residenza' => serialize($_POST))'" : "NULL";
+	    if(empty($_POST["residenza"]))
+			$residenza="NULL";
+		else
+			$residenza="'".$_POST["residenza"]."'";
 	    $queryinserimento="INSERT INTO utente(nome,email,password,residenza,datanascita) VALUES ('$user','$email','$pass',$residenza,$data)";	
 		
 		// Lancio query
@@ -56,7 +59,7 @@
 	    $_SESSION["user"]=$user;
 		
 		// Mandare a domanda.php
-        Header("Location: domanda.php");		
+        Header("Location: withinTheService.php");		
 	}else	
 	 // Utente esiste già	
 	 Header("Location: paginaRegistrazione.php?message_error=6");
