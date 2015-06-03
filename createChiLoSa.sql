@@ -103,3 +103,14 @@ CREATE TABLE Rispostaperta
 	                     ON DELETE CASCADE,			 
 		 PRIMARY KEY(idr)		
 		);
+
+CREATE TABLE Voto
+		(nome VARCHAR(20) NOT NULL REFERENCES Utente(nome)
+						  ON DELETE CASCADE
+						  ON UPDATE CASCADE, 
+		 idr integer NOT NULL REFERENCES Rispostaperta(idr)
+		 				  ON DELETE CASCADE
+						  ON UPDATE CASCADE,		
+		 voto BOOLEAN,
+		 PRIMARY KEY(nome,idr)	  	
+		);
