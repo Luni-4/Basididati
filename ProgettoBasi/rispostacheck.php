@@ -21,6 +21,6 @@
 	}
 	else
 		$message="Errore nel servizio, riprovare a caricare";
-	header("Location: rispostasondaggio.php?message=$message&anonimo=$anonimo");
+	header("Location: rispostasondaggio.php?message=$message");
 	
 ?>

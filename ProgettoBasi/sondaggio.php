@@ -9,7 +9,7 @@
 			        $testo=$_POST["testo"]; 
                     $testo=$testo."<br><br>";
                     for($i=0; $i<count($_POST)-5; $i++)		
-                         $testo=$testo."<input type=radio name=sonda value=".$_POST[$i].">".$_POST[$i]."<br>";					$titolo=$_POST["titolo"];		
+                         $testo=$testo."<input type=radio name=sonda value=".$_POST[$i]." required>".$_POST[$i]."<br>";					$titolo=$_POST["titolo"];		
                     $nome=$_SESSION['user'];					
 					$imgtesto="'".$_POST["imgtesto"]."'";;
 					if(!empty($_POST["imgurl"]))

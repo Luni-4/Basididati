@@ -58,43 +58,39 @@
 				                print"$row[1]";
 					            print"<br><br>Hai già votato per questo sondaggio<br><br>";
 					            print"<a href=withinTheService.php>Torna alla pagina iniziale</a>";
-							}
-						}// query già votato
-						 else
+								
+								print"<br><br><br>Ecco le risposte del sondaggio";
+								 // mostro risposte 
+			                    $querysondaggio="SELECT testorisp, count(testorisp) AS p
+							                     FROM rispostapredefinita
+							                     WHERE idd='$idd'
+							                     GROUP BY testorisp";
+			                    $query=pg_query($dbconn,$querysondaggio);			
+			                    if($query)
+			                    {
+				                   print"<br><br>Testo risposta  voto<br><br>";
+				
+					               if(pg_num_rows($query) != 0)
+					               {						
+					                  while($row=pg_fetch_array($query))
+					                  {
+						                 print "$row[0] <a href=votosondaggio.php?risposta=$row[0]>$row[1]</a><br>";						
+					                  }
+					               }
+			                    } // if query risposte
+			                      else			
+				                      exit("Errore nella query: ".pg_last_error($dbconn));	  
+							
+						    }// query già votato
+						}
+						else
 						   exit("Errore nella query: ".pg_last_error($dbconn));	 
 					}// query chiusura
-			     }
+			     }// query sondaggio
 				 else
 					exit("Errore nella query: ".pg_last_error($dbconn));
-		?>
-		  
-		<br><br><br>Ecco le risposte alla query
-        <?php		
-            // mostro risposte 
-			   $querysondaggio="SELECT anonimo,nome,datar,testorisp,idr
-							    FROM rispostapredefinita
-							    WHERE idd='$idd'
-							    ORDER BY datar";
-			   $query=pg_query($dbconn,$querysondaggio);			
-			   if($query)
-			   {
-				    //visualizzo le risposte
-					while($row=pg_fetch_assoc($query))
-					{
-						print "<br>";
-						if($row['anonimo']=='f')
-							print $row['nome'];
-						else 
-					        print "anonimo";
-						print $row['datar'];
-						print $row['testorisp'];						
-					}
-			    }
-			    else			
-				     exit("Errore nella query: ".pg_last_error($dbconn));
-			
 		    }// session
-	      }// message
-        ?>
+	     }// message
+		?>  
    </body>
 </html>
