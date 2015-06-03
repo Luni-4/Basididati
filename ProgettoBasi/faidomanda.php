@@ -12,12 +12,11 @@
     <?php
 	   require_once "dbopen.php";
 	   //$user=$_SESSION["user"];
-	   $user='alice';
+	   $user='oite';
 	   if(isset($_GET["message"])){
 		  print $_GET["message"];		 
 	   }
-	   else
-	   {
+	   else{}
     ?>
 	<a href=withinTheService.php>Torna alla pagina iniziale</a>
 	  <form action='domanda.php?' method=GET'>	     
@@ -26,19 +25,16 @@
 				   <option value='nessunascelta' selected>Scegli</option>
 			       <?php	 
 	                  $querydomanda="SELECT nomec
-				                     FROM utente NATURAL JOIN preferenza
-				                     WHERE utente.nome='$user'";
+				                     FROM preferenza
+				                     WHERE nome='$user'";
 	                  $query=pg_query($dbconn,$querydomanda);
 	                  if($query){
-		                  $categoria="categoria";
-		                  $i=0;		
-		                  while($row=pg_fetch_assoc($query)){
-			                    $cate=$categoria.$i;
+		                  
+		                  while($row=pg_fetch_assoc($query))
 			                    print "<option value=$row[nomec]>".$row['nomec']."</option>";
-			                    $i++;
-		                  }
+			                  
 				      }else		                
-			                $message=pg_last_error($dbconn)." impossibile visualizzare le categorie di interesse";
+			                exit("Errore nella query: ".pg_last_error($dbconn));
                     ?>					
 		         </select>
 		       Titolo domanda<input type='text' name='titolo' size='50' required><br>
@@ -49,24 +45,29 @@
 		</form>	 
 	 
      <h3>Visualizza le tue domande e modificane la visibilità!</h3>
+
      <?php
 	      $querydomanda="SELECT idd,titolo,testo,datad,imgurl,imgtesto,chiusa
 				         FROM utente NATURAL JOIN domandaperta
 				         WHERE utente.nome='$user'";
 	      $query=pg_query($dbconn,$querydomanda);
 	      if($query){
-		       while($row=pg_fetch_assoc($query)){
-			     if($row["chiusa"] == 'f')
-				    $chiusa="Chiudi";
-			     else
-				    $chiusa="Apri";
-			     print "Titolo : ".$row['titolo']."Testo : ".$row['testo']."<a href=domanda.php?idd=$row[idd]&chiusa=$row[chiusa]>$chiusa</a><br>";
-		        }
-	        }else 
-		    {
-		       $message=pg_last_error($dbconn)." impossibile visualizzare le vecchie domande"; 
-	        }
-	    }// else sessione
+		    while($row=pg_fetch_assoc($query)){
+			if($row["chiusa"] != 'f') //se scrivo FALSE non me lo prende
+				print "Titolo : ".$row['titolo']."Testo : ".$row['testo']."Chiusa <br>";
+			else
+				print "Titolo : ".$row['titolo']."Testo : ".$row['testo']."<a href=domanda.php?idd=$row[idd]>Risposta aperta: Chiudi</a><br>";
+		}					
+
+	 }else
+		exit("Errore nella query: ".pg_last_error($dbconn));
+	  
      ?>
-    </body>
- </html>
+  	 </body>
+ </html> 
+ 
+ 
+ 
+ 
+
+

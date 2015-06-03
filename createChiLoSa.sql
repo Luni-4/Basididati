@@ -94,8 +94,6 @@ CREATE TABLE Rispostaperta
 		 anonimo BOOLEAN DEFAULT FALSE,
 		 datar TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 		 testorisp TEXT NOT NULL,
-		 votopositivo integer DEFAULT 0,
-		 votonegativo integer DEFAULT 0,
 		 nome VARCHAR(20) DEFAULT NULL REFERENCES Utente(nome)
 				ON DELETE SET NULL
 				ON UPDATE CASCADE,
