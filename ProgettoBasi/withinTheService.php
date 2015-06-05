@@ -11,6 +11,7 @@
   
   <body style='background-color:#6F6'>
 			<?php
+				require_once "dbopen.php";
 			   $_SESSION["user"]='oite'; //da togliere quando tutto sara' unito, implementazione farlocca
 			   $user=$_SESSION["user"];
 	           if(!isset($_SESSION["user"])){
@@ -19,33 +20,51 @@
 			?>
 			<div class='top_box'></div>
 			<div id='cssmenu'>
-			<ul>
+			<ul><ul>
 					 <li><a href='sondaggiorisp.php'><span>|Fai/Modifica Sondaggio|</span>	</a></li>
-					   <li><a href='faidomanda.php'><span>|Fai/Modifica Domanda|</span></a></li> <!-- da fare con query la selezione delle categorie-->
-						<li>
-							<select class='style'>
-									<option value='categoria1'>|Cucina|</option>
-									<option value='categoria2'>|Sport|</option>	
-									<option value='categoria3'>|Informatica|</option>
-									<option value='categoria4'>|Animali|</option>
-							</select>
-					   </li>
+					   <li><a href='faidomanda.php'><span>|Fai/Modifica Domanda|</span></a></li> 
+				
+						<li>Categoria
+						<ul>
+							<a href="withinTheService.php?sceltacategoria='tutti'"><li>Tutti</li></a>
+						   <?php
+							  $querydomanda="SELECT nomec
+											 FROM preferenza
+											 WHERE nome='$user'";
+							  $query=pg_query($dbconn,$querydomanda);//per stampare le categorie di preferenza
+							  if($query)
+								  while($row=pg_fetch_assoc($query))
+										print "<a href=withinTheService.php?sceltacategoria=$row[nomec]<li>".$row['nomec']."</li></a>";
+							  else		                
+									exit("Errore nella query: ".pg_last_error($dbconn));
+							?>					
+							</ul>
+						</li>
 						<li><a href='profiloUtente.php'><span>|Vai alla tua pagina|</span></a></li>
 					   <li class='last'><a href='logout.php'><span>|Logout|</span></a></li>
 					  
 					</ul>
+					  
+					</ul>
 				</div>
-			<div class='main_box'></div>
+			<div class='main_box'>
 			<div class='ghost_box'>
 			<?php	
-					require_once "dbopen.php";
+					$sceltacategoria=NULL;
+					if(isset($_GET["sceltacategoria"]))
+						$sceltacategoria=$_GET["sceltacategoria"];
 					
 					// Query per creare vista di categorie associate a quel utente
-					$queryview="CREATE OR REPLACE VIEW preferenzaUtente(nome,nomec) as 
-								SELECT nome,nomec
-								FROM utente NATURAL JOIN preferenza
-								WHERE utente.nome='$user'";
-								
+					if($sceltacategoria== NULL || $sceltacategoria=='tutti')
+						$queryview="CREATE OR REPLACE VIEW preferenzaUtente(nome,nomec) as 
+									SELECT nome,nomec
+									FROM preferenza
+									WHERE nome='$user'";
+					else			
+						$queryview="CREATE OR REPLACE VIEW preferenzaUtente(nome,nomec) as 
+									SELECT nome,nomec
+									FROM preferenza
+									WHERE nome='$user' AND nomec='$sceltacategoria'";
 					$query_create_view=pg_query($dbconn,$queryview);   
 					
 					//Query per trovare domande aperte e sondaggi più recenti relativi alle categorie scelte dall'utente connesso
@@ -59,10 +78,10 @@
 							
 							if($query_res)
 							{
-								print "<div style='color:black'>Domande: </div>";
+								print "<div style='color:black;font-size:30px'>Domande: </div>";
 								while($row=pg_fetch_assoc($query_res)){
-									print "<div style='background-color:#00CC99;width:675px;padding-left:10px'>Utente: ".$row["nome"]." ,titolo: ".$row["titolo"]." ,Data: ".$row["datad"]." ,Categoria: ".$row["nomec"]."<a href=rispostadomanda.php?idd=$row[idd]>Risposta</a><br></div>";
-									print "<div style='background-color:white;width:675px;color:black;padding-left:10px'>".$row["testo"]."<br></div>";
+									print "<div style='background-color:#00CC99;width:750px;padding-left:10px;font-size:20px'> Utente: ".$row["nome"]." , Titolo: ".$row["titolo"]." , Data: ".$row["datad"]." , Categoria: ".$row["nomec"]."<a href=rispostadomanda.php?idd=$row[idd]>Risposta</a><br></div>";
+									print "<div style='background-color:white;width:750px;color:black;padding-left:10px;font-size:20px'>".$row["testo"]."<br></div>";
 							    }
 							}else{
 								exit("Errore nella query: ".pg_last_error($dbconn));
@@ -75,10 +94,10 @@
 							$query_res=pg_query($dbconn,$querysondaggio);
 							if($query_res)
 							{
-									print "<div style='color:black'>Sondaggio: </div>";
+									print "<br><br><div style='color:black;font-size:30px'>Sondaggi: </div>";
 									while($row=pg_fetch_assoc($query_res)){
-										print "<div style='background-color:#00CC99;width:675px;padding-left:10px'>Utente: ".$row["nome"]." ,titolo: ".$row["titolo"]." ,Data: ".$row["datad"]." ,Categoria: ".$row["nomec"]."<a href=rispostasondaggio.php?idd=$row[idd]>Mostra</a><br></div>";
-										//print "<div style='background-color:white;width:675px;color:black;padding-left:10px'>".$row["testo"]."<br></div>"; 
+										print "<div style='background-color:#00CC99;width:750px;padding-left:10px;font-size:20px'> Utente: ".$row["nome"]." , Titolo: ".$row["titolo"]." , Data: ".$row["datad"]." , Categoria: ".$row["nomec"]."<a href=rispostasondaggio.php?idd=$row[idd]>Mostra</a><br></div>";
+										//print "<div style='background-color:white;width:750px;color:black;padding-left:10px;font-size:20px'>".$row["testo"]."<br></div>"; 
 									}
 							}else{
 									exit("Errore nella query: ".pg_last_error($dbconn));
@@ -87,12 +106,13 @@
 					else{
 					        exit("Errore nella query: ".pg_last_error($dbconn));
 					}	
-            ?>					
+            ?>	</div>				
 			</div>
-			<div class='left_box'></div>
-			<div class='ghost_left'>				
+			<div class='left_box'>
+					
 			<?php
-			                //controllo se l'utente e' vip								
+			                //controllo se l'utente e' vip	
+							print "<img src='Immagini/user.png' style='width:150px;height:150px;position:absolute;top:50px'>";
 							$query="SELECT nome,tipo
 									FROM utente
 									WHERE nome='$user'";
@@ -156,6 +176,7 @@
 							   exit("Errore nella query: ".pg_last_error($dbconn));
 							}									
 			?>
-			</div>
+				</div>
+			
   </body>
 </html>
