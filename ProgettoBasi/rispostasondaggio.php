@@ -7,13 +7,23 @@
  <head>
    <meta charset="UTF-8">
    <title>ripostaSondaggio</title>	
+   <link rel="stylesheet" type="text/css" href="Css/styles.css">
 </head>
-	<body>
+	<body style='background-color:#6F6'>
+	<div class='top_box'></div>
+	<div id='cssmenu'>
+			<ul>
+					 <li><a href='withinTheService.php'><span>|Torna Indietro|</span>	</a></li>
+					 <li><a href='#'><span>|Vai alla tua pagina|</span></a></li>
+					 <li class='last'><a href='logout.php'><span>|Logout|</span></a></li>		  
+			</ul>
+	</div>
+	<div class='utility_background'>
+	<div class='ghost_utility'>
 	    <?php
-		  if(isset($_GET["message"])){
-			 print"<a href=withinTheService.php>Torna alla pagina iniziale</a><br><br>";
-	         print $_GET["message"];         
-		  }else
+		  if(isset($_GET["message"]))
+	        print "<h3 style='color:red'>".$_GET["message"]."</h3>";         
+		  else
 		  {			 
 		    require_once "dbopen.php"; 
 		    if(!empty($_GET['idd']))
@@ -21,18 +31,26 @@
 		         $_SESSION['idds']=$_GET['idd'];
 			     $idd=$_GET['idd'];	
                  $utente=$_SESSION["user"];				 
-		         $query="SELECT titolo,testo,chiusa 
+		         $query="SELECT titolo,testo,chiusa,imgurl,imgtesto 
 			             FROM sondaggio
 					     WHERE idd='$idd'";
 			     $query_res=pg_query($dbconn,$query);
 			     if($query_res)
 				 {
-					$row=pg_fetch_row($query_res);					
+					$row=pg_fetch_row($query_res);
+					if($row[3]!=NULL)
+						print "<img src=$row[imgurl] style='width:304px;height:228px;position:absolute;right:100px'>";
+					else
+						print "<img src='Immagini/image_not_found.jpg' style='width:304px;height:228px;position:absolute;right:100px'>";
+						
+					if($row[4]!=NULL)
+						print "<div style='position:absolute;right:100px'><u>Descrizione Immagine: </u>".$row["imgtesto"]."</div><br><br>";
+					else
+						print "<div style='position:absolute;right:100px;top:300px'><u>Descrizione Immagine: </u> Non disponibile </div><br><br>";
 					if($row[2] == 't'){
-				       print"$row[0]<br><br>";
-				       print"$row[1]";
-					   print"<br><br> La domanda è chiusa, non puoi rispondere<br><br>";
-					   print"<a href=withinTheService.php>Torna alla pagina iniziale</a>";
+				       print"<h1><b>Titolo: </b>". $row[0]."</h1>";
+				       print"<h1><b>Testo: </b>".$row[1]."</h1>";
+					   print"<br><br><h3 style='color:red'> La domanda è chiusa, non puoi rispondere</h3>";
 					}
 					else
 					{
@@ -45,21 +63,20 @@
 							if(pg_num_rows($query_res) == 0)
 							{						
 						        print"<form action=rispostacheck.php method=POST>";
-						        print"$row[0]<br><br>";
-				                print"$row[1]";
+						        print"<h1><b>Titolo: </b>". $row[0]."</h1>";
+								print"<h1><b>Testo: </b>".$row[1]."</h1>";
 						        print"<br><br>
-		                        <input type=checkbox name=anonimo> Anonimo<br>
-		                        <input type=submit value=Invia Risposta>
+		                        <input type=checkbox name=anonimo class='error'> Anonimo<br>
+		                        <input type='submit' value='Invia Risposta' class='myButton' style='position:absolute;right:150px;top:425px'>
 		                      </form>";
 							}
 							else
 							{
-								print"$row[0]<br><br>";
-				                print"$row[1]";
-					            print"<br><br>Hai già votato per questo sondaggio<br><br>";
-					            print"<a href=withinTheService.php>Torna alla pagina iniziale</a>";
-								
-								print"<br><br><br>Ecco le risposte del sondaggio";
+								print"<h2><b>Titolo: </b>". $row[0]."</h2>";
+								print"<h2><b>Testo: </b>".$row[1]."</h2>";
+					            print"<br><br><h3 style='color:red'>Hai già votato per questo sondaggio</h3>";
+								print"<h2 style='color:green'>Ecco le risposte del sondaggio</h2>";
+								print"<h3 style='color:blu'>(Quelle non riportate non hanno ottenuto votazione)</h3>";
 								 // mostro risposte 
 			                    $querysondaggio="SELECT testorisp, count(testorisp) AS p
 							                     FROM rispostapredefinita
@@ -68,7 +85,7 @@
 			                    $query=pg_query($dbconn,$querysondaggio);			
 			                    if($query)
 			                    {
-				                   print"<br><br>Testo risposta  voto<br><br>";
+				                   print"<h2 style='color:green'><u>Testo e voto (clicca su voto per vedere chi ha votato!)</u></h2>";
 				
 					               if(pg_num_rows($query) != 0)
 					               {						
@@ -92,5 +109,7 @@
 		    }// session
 	     }// message
 		?>  
+			</div>
+		</div>
    </body>
 </html>
