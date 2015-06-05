@@ -40,7 +40,10 @@
 			<div class='ghost_box'>					
 			<?php	
 					require_once "dbopen.php";
-					$utente=$_SESSION["utente"];
+					if(empty($_GET["utente"]))
+					       $utente=$_SESSION["user"];
+					else
+						   $utente=$_GET["utente"];
 					// Query per trovare dati utente
 					$queryutente="SELECT email,residenza,tipo,datanascita
 							      FROM utente
@@ -50,12 +53,15 @@
 					{
 						$ut=pg_fetch_assoc($utentequery);
 						// Stampare valori tupla utente
-						print "<p>Username: ".$_SESSION["utente"]."</p>\n";
-						print "<p>Email: ".$ut["email"]."</p>\n";
-						print "<p>Residenza: ".(empty($ut["residenza"]) ? "Non pervenuta" : $ut["residenza"])."</p>\n";
-						print "<p>Sei un utente: ".$ut["tipo"]."</p>\n";
-						print "<p>Data di nascita: ".(empty($ut["datanascita"]) ? "Non pervenuta" : $ut["datanascita"])."</p>\n";												
-					}else
+					    print "<div style='background-color:#00CC99;width:675px;padding-left:10px'>";
+						     print "<p>Username: ".$utente."</p>\n";
+						     print "<p>Email: ".$ut["email"]."</p>\n";
+						     print "<p>Residenza: ".(empty($ut["residenza"]) ? "Non pervenuta" : $ut["residenza"])."</p>\n";
+						     print "<p>Sei un utente: ".$ut["tipo"]."</p>\n";
+						     print "<p>Data di nascita: ".(empty($ut["datanascita"]) ? "Non pervenuta" : $ut["datanascita"])."</p>\n";												
+					    print"</div>";
+					}
+					else
 						exit("Errore nella query: ".pg_last_error($dbconn));								 
 			?>
 			</div>

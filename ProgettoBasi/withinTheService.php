@@ -30,7 +30,7 @@
 									<option value='categoria4'>|Animali|</option>
 							</select>
 					   </li>
-						<li><a href='#'><span>|Vai alla tua pagina|</span></a></li>
+						<li><a href='profiloUtente.php'><span>|Vai alla tua pagina|</span></a></li>
 					   <li class='last'><a href='logout.php'><span>|Logout|</span></a></li>
 					  
 					</ul>

@@ -14,11 +14,11 @@
 	           while($row=pg_fetch_array($query_res))
 			   {
 				    if($row[1]== 'f')
-						$nome=$row[0];					
+						$nome="<a href=profiloUtente.php?utente=$row[0]>$row[0]</a>";					
 					else
 						$nome="Anonimo";					
 					if($row[0] == $utente)
-						$nome="Tu";
+						$nome="<a href=profiloUtente.php>Tu</a>";
 					print "$nome $row[2]<br>";						
 			   }
     }
