@@ -38,8 +38,26 @@ function checkFormCreateAccount() {
 }
 
 function checkDate(m, d, y) {  
-  // original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net) 
-  
   return m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0))
     .getDate();
+}
+
+function selettor(elem){  
+        if(elem.checked){
+			 var figlio = elem.nextSibling.nextSibling;			 
+			 var cb = figlio.getElementsByTagName("input");
+			 for(var i=0; i<cb.length; i++){				
+						 cb[i].checked=true;  
+                         cb[i].disabled=true;					 
+			} 
+		}
+		else
+		{
+			var figlio = elem.nextSibling.nextSibling;			 
+			var cb = figlio.getElementsByTagName("input");
+			for(var i=0; i<cb.length; i++){				
+						 cb[i].checked=false;  
+                         cb[i].disabled=false;					 
+			} 
+		}
 }
