@@ -2,7 +2,7 @@
 	session_start();
 	require_once "dbopen.php";
 	//controllo che i campi di interesse siano riempiti
-	if(!isset($_GET["idd"])){//faccio una domanda
+	if(!isset($_GET["idd"])){//ulteriori controlli anche se abbiamo required per evitare problemi legati alla sessione
 		if(!empty($_GET["testo"])){
 			$testo=$_GET["testo"];
 			if(!empty($_GET["titolo"])){
@@ -16,11 +16,22 @@
 					if($query_res){
 						$row=pg_fetch_assoc($query_res);
 						$idd_domanda=$row["idd"];
-						$categoria=$_GET["categoria"];
-						$query="INSERT INTO topic1 (nomec,idd) VALUES ('$categoria','$idd_domanda')";
+						$categoria1=$_GET["categoria"];
+						$categoria2=$_GET["categoria2"];
+						$query="INSERT INTO topic1 (nomec,idd) VALUES ('$categoria1','$idd_domanda')";
 						$query_res=pg_query($dbconn,$query);
-						if($query_res)
-							$message="Domanda inserita con successo!";
+						if($query_res){
+							if($categoria2=='nessunascelta')
+								$message="Domanda inserita con successo!";
+							else{
+								$query="INSERT INTO topic1 (nomec,idd) VALUES ('$categoria2','$idd_domanda')";
+								$query_res=pg_query($dbconn,$query);
+								if($query_res)
+									$message="Domanda inserita con successo!";
+								else
+									$message="La domanda non puo' riferirsi a due topic uguali!";
+								}
+							}
 						else
 							exit("Errore nella query: ".pg_last_error($dbconn));
 					}else
