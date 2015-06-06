@@ -6,8 +6,6 @@ Alice:
 - Estrazione database e caricamento sul sito, con metodo scritto nel tema d'esame
 
 Luni:
-- Query categoria e modifica pagina di registrazione
-- Modifica schema non ristrutturato con aggiunta categoria voto
 - Revisione totale codice progetto
 
 Luni&Alice
