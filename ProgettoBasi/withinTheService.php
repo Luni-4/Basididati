@@ -10,14 +10,13 @@
 </head>
   
   <body style='background-color:#6F6'>
-			<?php
-				require_once "dbopen.php";
-			   $_SESSION["user"]='oite'; //da togliere quando tutto sara' unito, implementazione farlocca
-			   $user=$_SESSION["user"];
-	           if(!isset($_SESSION["user"])){
-		           header("Location: homePage.php?message_error=9");
-			   }		
-			?>
+		<?php
+			if(!isset($_SESSION["user"])){
+		      header("Location: homePage.php?message_error=9");
+			}
+            else
+            {				   
+		?>
 			<div class='top_box'></div>
 			<div id='cssmenu'>
 			<ul><ul>
@@ -26,15 +25,17 @@
 				
 						<li>Categoria
 						<ul>
-							<a href="withinTheService.php?sceltacategoria='tutti'"><li>Tutti</li></a>
+							<li><a href="withinTheService.php?sceltacategoria=tutti">Tutti</a></li>
 						   <?php
+						      require_once "dbopen.php";	
+						      $user=$_SESSION["user"];
 							  $querydomanda="SELECT nomec
 											 FROM preferenza
 											 WHERE nome='$user'";
 							  $query=pg_query($dbconn,$querydomanda);//per stampare le categorie di preferenza
 							  if($query)
 								  while($row=pg_fetch_assoc($query))
-										print "<a href=withinTheService.php?sceltacategoria=$row[nomec]<li>".$row['nomec']."</li></a>";
+										print "<li><a href=\"withinTheService.php?sceltacategoria=$row[nomec]\">$row[nomec]</a></li>";
 							  else		                
 									exit("Errore nella query: ".pg_last_error($dbconn));
 							?>					
@@ -80,12 +81,12 @@
 							{
 								print "<div style='color:black;font-size:30px'>Domande: </div>";
 								while($row=pg_fetch_assoc($query_res)){
-									print "<div style='background-color:#00CC99;width:750px;padding-left:10px;font-size:20px'> Utente: ".$row["nome"]." , Titolo: ".$row["titolo"]." , Data: ".$row["datad"]." , Categoria: ".$row["nomec"]."<a href=rispostadomanda.php?idd=$row[idd]>Risposta</a><br></div>";
+									print "<div style='background-color:#00CC99;width:750px;padding-left:10px;font-size:20px'> Utente: ".$row["nome"]." , Titolo: ".$row["titolo"]." , Data: ".$row["datad"]." , Categoria: ".$row["nomec"]."<a href=\"rispostadomanda.php?idd=$row[idd]\">Risposta</a><br></div>";
 									print "<div style='background-color:white;width:750px;color:black;padding-left:10px;font-size:20px'>".$row["testo"]."<br></div>";
 							    }
-							}else{
+							}else
 								exit("Errore nella query: ".pg_last_error($dbconn));
-							}
+							
 							
 							//query per sondaggio
 							$querysondaggio="SELECT nome,titolo,testo,datad,idd,nomec
@@ -95,17 +96,14 @@
 							if($query_res)
 							{
 									print "<br><br><div style='color:black;font-size:30px'>Sondaggi: </div>";
-									while($row=pg_fetch_assoc($query_res)){
-										print "<div style='background-color:#00CC99;width:750px;padding-left:10px;font-size:20px'> Utente: ".$row["nome"]." , Titolo: ".$row["titolo"]." , Data: ".$row["datad"]." , Categoria: ".$row["nomec"]."<a href=rispostasondaggio.php?idd=$row[idd]>Mostra</a><br></div>";
-										//print "<div style='background-color:white;width:750px;color:black;padding-left:10px;font-size:20px'>".$row["testo"]."<br></div>"; 
-									}
-							}else{
-									exit("Errore nella query: ".pg_last_error($dbconn));
-							}
+									while($row=pg_fetch_assoc($query_res))
+										print "<div style='background-color:#00CC99;width:750px;padding-left:10px;font-size:20px'> Utente: ".$row["nome"]." , Titolo: ".$row["titolo"]." , Data: ".$row["datad"]." , Categoria: ".$row["nomec"]."<a href=\"rispostasondaggio.php?idd=$row[idd]\">Mostra</a><br></div>";
+							}else
+								exit("Errore nella query: ".pg_last_error($dbconn));
+							
 					}
-					else{
-					        exit("Errore nella query: ".pg_last_error($dbconn));
-					}	
+					else
+						exit("Errore nella query: ".pg_last_error($dbconn));						
             ?>	</div>				
 			</div>
 			<div class='left_box'>
@@ -123,9 +121,8 @@
 									$typeuser=$row["tipo"];
 									$nomeuser=$row["nome"];
 									
-									if($typeuser=="vip"){									
-										print"Ciao ".$row["nome"]." !<br> Utente di tipo: ".$typeuser;
-									}
+									if($typeuser=="vip")									
+										print"Ciao ".$row["nome"]." !<br> Utente di tipo: ".$typeuser;									
 									else
 									{
 										print"Ciao ".$row["nome"]." !<br> Utente di tipo: ".$typeuser;
@@ -150,31 +147,26 @@
 											         $row=pg_fetch_assoc($query_res);
 											         $votipositivi=$row["votipositivi"];
 											         $votinegativi=$row["votinegativi"];
-											         if($numrisposte==2 && $votipositivi>=$votinegativi){
-												                  $query="UPDATE utente SET tipo='vip' WHERE nome='$user'";  //promozione a vip
-												                  $query_res=pg_query($dbconn,$query);
-												                  if(!$query_res){												
-													                    exit("Errore nella query: ".pg_last_error($dbconn));																		
-												                  }
-													  }			 
+											         if($numrisposte==2 && $votipositivi>=$votinegativi)
+													 {
+												            $query="UPDATE utente SET tipo='vip' WHERE nome='$user'";  //promozione a vip
+												            $query_res=pg_query($dbconn,$query);
+												            if(!$query_res)												
+													            exit("Errore nella query: ".pg_last_error($dbconn));													             
+													 }			 
 											    }
-												else
-							                    {
+												else							                    
 							                        exit("Errore nella query: ".pg_last_error($dbconn));
-							                    }  
+							                    
 										}
-										else
-							            {
-							              exit("Errore nella query: ".pg_last_error($dbconn));
-							            }  
-											
-									}	
-											
+										else							            
+							              exit("Errore nella query: ".pg_last_error($dbconn));										
+									}// controllo utente normale diventa vip											
 							}
-							else
-							{
+							else							
 							   exit("Errore nella query: ".pg_last_error($dbconn));
-							}									
+								
+			}// sessione							
 			?>
 				</div>
 			

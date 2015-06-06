@@ -1,24 +1,24 @@
 <?php 
 	session_start(); // Apertura sessione	
 	
-	 $user=trim($_POST["user"]);
-     $email=trim($_POST["email"]);
-	 $pass=trim($_POST["pass"]);
+	$user=trim($_POST["user"]);
+    $email=trim($_POST["email"]);
+	$pass=trim($_POST["pass"]);
 	
-	  require_once "dbopen.php"; // apertura database
+	require_once "dbopen.php"; // apertura database
 	 
-		// controllo esistenza nel database di utente, email e password
-		$queryricerca="SELECT nome, email, password FROM utente WHERE nome='$user' AND email='$email' AND password='$pass'";
-		$ricerca=pg_query($dbconn, $queryricerca) or die("Errore nella query");
+    // controllo esistenza nel database di utente, email e password
+	$queryricerca="SELECT nome, email, password FROM utente WHERE nome='$user' AND email='$email' AND password='$pass'";
+	$ricerca=pg_query($dbconn, $queryricerca) or die("Errore nella query");
 		
-		if(pg_num_rows($ricerca) == 0){
+	if(pg_num_rows($ricerca) == 0)
 			Header("Location: homePage.php?message_error=7");					
-		}else{
-			// Variabili di sessioni da mantenere quando utente si logga
-	        $_SESSION["utente"]=$user;
+	else
+	{
+		// Variabili di sessioni da mantenere quando utente si logga
+	    $_SESSION["user"]=$user;
 	
-	        // Invio domanda
-	        Header("Location: paginaRegistrazione.php");	
-		}
-	}
+	    // Invio domanda
+	    Header("Location: withinTheService.php");	
+	}	
 ?>

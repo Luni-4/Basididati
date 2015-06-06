@@ -29,15 +29,15 @@
 	  $giorno=trim($_POST["giorno"]);	  
 	  $data=(!empty($giorno) && !empty($mese) && !empty($anno)) ? "'$anno-$mese-$giorno'" : "NULL";
 
-    require_once "dbopen.php"; // apertura database
+      require_once "dbopen.php"; // apertura database
 	
-	// controllo esistenza nel database di utente e email	
-	$queryricerca="SELECT nome FROM utente WHERE nome='$user' OR email='$email'";
-	$ricerca=pg_query($dbconn, $queryricerca) or die("Errore nella query");	
+	  // controllo esistenza nel database di utente e email	
+	  $queryricerca="SELECT nome FROM utente WHERE nome='$user' OR email='$email'";
+	  $ricerca=pg_query($dbconn, $queryricerca) or die("Errore nella query");	
 	
-	// Se utente non esiste aggiunta a database
-	if(pg_num_rows($ricerca) == 0)
-	{ 	
+	  // Se utente non esiste aggiunta a database
+	  if(pg_num_rows($ricerca) == 0)
+	  { 	
 		// Valori e Controllo 	    
 	    if(empty($_POST["residenza"]))
 			$residenza="NULL";
@@ -60,8 +60,9 @@
 		
 		// Mandare a domanda.php
         Header("Location: withinTheService.php");		
-	}else	
-	 // Utente esiste già	
-	 Header("Location: paginaRegistrazione.php?message_error=6");
+	  }
+	  else	
+	    // Utente esiste già	
+	    Header("Location: paginaRegistrazione.php?message_error=6");
   }
 ?>

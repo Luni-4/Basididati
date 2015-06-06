@@ -1,6 +1,8 @@
 function checkFormCreateAccount() { 
 	
 	// Controllo password
+	var pass= document.forms.registrazione.pass.value;
+	var passConfirm= document.forms.registrazione.passConfirm.value;	
 	if (pass != passConfirm) {
         alert("Le due password non coincidono, controllare uguaglianza");
         document.forms.registrazione.pass.focus();		
@@ -26,15 +28,20 @@ function checkFormCreateAccount() {
 	var categ = document.forms.registrazione.elements['categ[]'];	
 	var c=0;
 	for (var i=0; i<categ.length; i++) {
-        if (categ[i].checked){
-            c++;
-		}
+        if (categ[i].checked)
+            c++;		
      }
 	 
 	 if(c == 0){
 	   alert("Inserisci una categoria");
 	   return false;
-     }	   
+     }	
+
+	 for (var i=0; i<categ.length; i++) {
+        if (categ[i].disabled)
+            categ[i].disabled=false;		
+     }
+     	 
 }
 
 function checkDate(m, d, y) {  

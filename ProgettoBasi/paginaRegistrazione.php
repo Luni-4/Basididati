@@ -10,7 +10,7 @@
 			<article class="title">
 				<p>Registrazione</p>
 			</article>
-				<form name="registrazione" action="checkCreateAccount.php" method=POST onsubmit="return checkFormCreateAccount()">
+				<form name="registrazione" action="checkCreateAccount.php" method=POST onsubmit="return checkFormCreateAccount();">
 					<section class="form">
 					    <?php
 						  $nome=NULL; $em=NULL;
@@ -304,16 +304,12 @@
 								  if($roots)
 								  {
 									  print"<ul>\n";
-									  while($root=pg_fetch_assoc($roots))
-									  {
-										  categoria($root["nomec"], $dbconn);
-									  }
+									  while($root=pg_fetch_assoc($roots))									  
+										  categoria($root["nomec"], $dbconn);									  
 									  print"</ul>\n";
 								  }
 								  else
-									  exit("Errore nella query: ".pg_last_error($dbconn));
-								  
-								  
+									  exit("Errore nella query: ".pg_last_error($dbconn));							  
 								  
 								  
 								  function categoria($super, $dbconn){
@@ -323,10 +319,10 @@
 									$result=pg_query($dbconn,$query);
 									if($result)
 										  if(($num=pg_num_rows($result)) == 0)	
-												print"<li><input type=\"checkbox\" name=\"categ[]\">$super</li>\n";
+												print"<li><input type=\"checkbox\" name=\"categ[]\" value=\"$super\">$super</li>\n";
 										  else
 										  {
-												print"<li><input type=\"checkbox\" name=\"categ[]\" onclick=\"selettor(this);\">$super \n<ul>\n";
+												print"<li><input type=\"checkbox\" name=\"categ[]\" value=\"$super\" onclick=\"selettor(this);\">$super \n<ul>\n";
 												for($i=0; $i<$num; $i++)
 												{
 													$cat=pg_fetch_assoc($result);
