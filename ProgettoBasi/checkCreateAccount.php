@@ -59,7 +59,7 @@
 	    $_SESSION["user"]=$user;
 		
 		// Mandare a domanda.php
-        Header("Location: withinTheService.php");		
+        Header("Location: withinTheService.php?sceltacategoria=tutti");		
 	  }
 	  else	
 	    // Utente esiste già	

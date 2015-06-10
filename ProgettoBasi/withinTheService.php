@@ -17,11 +17,11 @@
             else
             {				   
 		?>
-			<div class='top_box'></div>
-			<div id='cssmenu'>
+			<div class="top_box"></div>
+			<div id="cssmenu">
 			<ul><ul>
-					 <li><a href='sondaggiorisp.php'><span>|Fai/Modifica Sondaggio|</span>	</a></li>
-					   <li><a href='faidomanda.php'><span>|Fai/Modifica Domanda|</span></a></li> 
+					 <li><a href="sondaggiorisp.php"><span>|Fai/Modifica Sondaggio|</span>	</a></li>
+					   <li><a href="faidomanda.php"><span>|Fai/Modifica Domanda|</span></a></li> 
 				
 						<li>Categoria
 						<ul>
@@ -41,69 +41,113 @@
 							?>					
 							</ul>
 						</li>
-						<li><a href='profiloUtente.php'><span>|Vai alla tua pagina|</span></a></li>
-					   <li class='last'><a href='logout.php'><span>|Logout|</span></a></li>
+						<li><a href="profiloUtente.php"><span>|Vai alla tua pagina|</span></a></li>
+					   <li class="last"><a href="logout.php"><span>|Logout|</span></a></li>
 					  
 					</ul>
 					  
 					</ul>
 				</div>
-			<div class='main_box'>
-			<div class='ghost_box'>
+			<div class="main_box">
+			<div class="ghost_box">
 			<?php	
-					$sceltacategoria=NULL;
-					if(isset($_GET["sceltacategoria"]))
-						$sceltacategoria=$_GET["sceltacategoria"];
+					    $sceltacategoria=$_GET["sceltacategoria"];
 					
-					// Query per creare vista di categorie associate a quel utente
-					if($sceltacategoria== NULL || $sceltacategoria=='tutti')
-						$queryview="CREATE OR REPLACE VIEW preferenzaUtente(nome,nomec) as 
-									SELECT nome,nomec
-									FROM preferenza
-									WHERE nome='$user'";
-					else			
-						$queryview="CREATE OR REPLACE VIEW preferenzaUtente(nome,nomec) as 
-									SELECT nome,nomec
-									FROM preferenza
-									WHERE nome='$user' AND nomec='$sceltacategoria'";
-					$query_create_view=pg_query($dbconn,$queryview);   
-					
-					//Query per trovare domande aperte e sondaggi più recenti relativi alle categorie scelte dall'utente connesso
-					if($query_create_view)
-					{       
-				            //query per domanda
-							$querydomanda="SELECT nome,titolo,testo,datad,idd,nomec
-										   FROM domandaperta NATURAL JOIN topic1
-										   WHERE datad > CURRENT_TIMESTAMP - INTERVAL '7 days' AND topic1.nomec IN (SELECT nomec FROM preferenzaUtente)";   
-							$query_res=pg_query($dbconn,$querydomanda);
-							
-							if($query_res)
-							{
-								print "<div style='color:black;font-size:30px'>Domande: </div>";
-								while($row=pg_fetch_assoc($query_res)){
-									print "<div style='background-color:#00CC99;width:750px;padding-left:10px;font-size:20px'> Utente: ".$row["nome"]." , Titolo: ".$row["titolo"]." , Data: ".$row["datad"]." , Categoria: ".$row["nomec"]."<a href=\"rispostadomanda.php?idd=$row[idd]\">Risposta</a><br></div>";
-									print "<div style='background-color:white;width:750px;color:black;padding-left:10px;font-size:20px'>".$row["testo"]."<br></div>";
-							    }
-							}else
-								exit("Errore nella query: ".pg_last_error($dbconn));
-							
-							
-							//query per sondaggio
-							$querysondaggio="SELECT nome,titolo,testo,datad,idd,nomec
-											 FROM sondaggio NATURAL JOIN topic2
-											 WHERE datad > CURRENT_TIMESTAMP - INTERVAL '7 days' AND topic2.nomec IN (SELECT nomec FROM preferenzaUtente)";
-							$query_res=pg_query($dbconn,$querysondaggio);
-							if($query_res)
-							{
-									print "<br><br><div style='color:black;font-size:30px'>Sondaggi: </div>";
+						// Query per creare vista di categorie associate a quel utente
+						if($sceltacategoria=="tutti")
+							$queryview="CREATE OR REPLACE VIEW preferenzaUtente(nome,nomec) as 
+										SELECT nome,nomec
+										FROM preferenza
+										WHERE nome='$user'";
+						else			
+							$queryview="CREATE OR REPLACE VIEW preferenzaUtente(nome,nomec) as 
+										SELECT nome,nomec
+										FROM preferenza
+										WHERE nome='$user' AND nomec='$sceltacategoria'";
+						$query_create_view=pg_query($dbconn,$queryview);   
+						
+						//Query per trovare domande aperte e sondaggi più recenti relativi alle categorie scelte dall'utente connesso
+						if($query_create_view)
+						{       
+								//query per domanda
+								$querydomanda="SELECT DISTINCT nome,titolo,testo,datad,idd
+											   FROM domandaperta NATURAL JOIN topic1
+											   WHERE datad > CURRENT_TIMESTAMP - INTERVAL '7 days' AND topic1.nomec IN (SELECT nomec FROM preferenzaUtente)";   
+								$query_res=pg_query($dbconn,$querydomanda);
+								
+								if($query_res)
+								{
+									print "<div style='color:black;font-size:30px'>Domande: </div>";
 									while($row=pg_fetch_assoc($query_res))
-										print "<div style='background-color:#00CC99;width:750px;padding-left:10px;font-size:20px'> Utente: ".$row["nome"]." , Titolo: ".$row["titolo"]." , Data: ".$row["datad"]." , Categoria: ".$row["nomec"]."<a href=\"rispostasondaggio.php?idd=$row[idd]\">Mostra</a><br></div>";
-							}else
-								exit("Errore nella query: ".pg_last_error($dbconn));
-							
-					}
-					else
-						exit("Errore nella query: ".pg_last_error($dbconn));						
+									{   
+								        print "<div style='background-color:#00CC99;width:750px;padding-left:10px;font-size:20px'> Utente: ".$row["nome"]." , Titolo: ".$row["titolo"]." , Data: ".$row["datad"]." , Categorie: "; 
+										$iden=$row["idd"];
+										$querycateg="SELECT nomec 
+										             FROM topic1
+													 WHERE idd='$iden'";
+									    $query_c=pg_query($dbconn,$querycateg);										
+										if($query_c)
+										{
+											   for($i=0; $i<pg_num_rows($query_c)-1; $i++)
+											   {
+													$rowc=pg_fetch_assoc($query_c);								    
+													print"$rowc[nomec], ";
+											   }
+											   $rowc=pg_fetch_assoc($query_c);
+											   print"$rowc[nomec]  ";
+										   
+										}
+										else
+										   exit("Errore nella query: ".pg_last_error($dbconn));
+									   
+									    print"<a href=\"rispostadomanda.php?idd=$row[idd]\">Risposta</a><br></div>";
+										print "<div style='background-color:white;width:750px;color:black;padding-left:10px;font-size:20px'>".$row["testo"]."<br></div>";
+									}// while domande
+								}
+								else
+								   exit("Errore nella query: ".pg_last_error($dbconn));				
+
+							   
+								
+								//query per sondaggio
+								$querysondaggio="SELECT DISTINCT nome,titolo,testo,datad,idd
+												 FROM sondaggio NATURAL JOIN topic2
+												 WHERE datad > CURRENT_TIMESTAMP - INTERVAL '7 days' AND topic2.nomec IN (SELECT nomec FROM preferenzaUtente)";
+								$query_res=pg_query($dbconn,$querysondaggio);
+								if($query_res)
+								{
+									print "<div style='color:black;font-size:30px'>Sondaggi: </div>";
+									while($row=pg_fetch_assoc($query_res))
+									{   
+								        print "<div style='background-color:#00CC99;width:750px;padding-left:10px;font-size:20px'> Utente: ".$row["nome"]." , Titolo: ".$row["titolo"]." , Data: ".$row["datad"]." , Categorie: "; 
+										$iden=$row["idd"];
+										$querycateg="SELECT nomec 
+										             FROM topic2
+													 WHERE idd='$iden'";
+									    $query_c=pg_query($dbconn,$querycateg);										
+										if($query_c)
+										{
+											   for($i=0; $i<pg_num_rows($query_c)-1; $i++)
+											   {
+													$rowc=pg_fetch_assoc($query_c);								    
+													print"$rowc[nomec], ";
+											   }
+											   $rowc=pg_fetch_assoc($query_c);
+											   print"$rowc[nomec]  ";
+										   
+										}
+										else
+										   exit("Errore nella query: ".pg_last_error($dbconn));
+									   
+									    print"<a href=\"rispostasondaggio.php?idd=$row[idd]\">Mostra</a><br></div>";										
+									}// while sondaggio
+								}
+								else
+								   exit("Errore nella query: ".pg_last_error($dbconn));		
+								
+						}
+						else
+							exit("Errore nella query: ".pg_last_error($dbconn));						
             ?>	</div>				
 			</div>
 			<div class='left_box'>

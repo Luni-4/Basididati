@@ -9,7 +9,8 @@
 			        $testo=$_POST["testo"]; 
                     $testo=$testo."<br><br>";
                     for($i=0; $i<count($_POST)-5; $i++)		
-                         $testo=$testo."<input type=radio name=sonda value=".$_POST[$i]." required>".$_POST[$i]."<br>";					$titolo=$_POST["titolo"];		
+                         $testo=$testo."<input type=radio name=sonda value=".$_POST[$i]." required>".$_POST[$i]."<br>";					
+					$titolo=$_POST["titolo"];		
                     $nome=$_SESSION['user'];					
 					$imgtesto="'".$_POST["imgtesto"]."'";;
 					if(!empty($_POST["imgurl"]))
@@ -22,16 +23,18 @@
 					$query="INSERT INTO sondaggio(titolo,testo,imgurl,imgtesto,nome) VALUES ('$titolo','$testo',$imgurl,$imgtesto,'$nome') RETURNING idd";
 					$query_risp=pg_query($dbconn,$query);
 		            if(!$query_risp)
-			               $message=pg_last_error($dbconn);	
+			               exit("Errore nella query: ".pg_last_error($dbconn));	
 					else
 	                {					   
-					  $row=pg_fetch_row($query_risp);					  
-                      $query="INSERT INTO topic2(nomec,idd) VALUES ('$categ',$row[0])";
-					  $query_risp=pg_query($dbconn,$query);
-		               if(!$query_risp)
-			               $message=pg_last_error($dbconn);	 
-                       else
-                           $message="Domanda inserita con successo!";	
+					    $row=pg_fetch_assoc($query_risp);
+						$idd_sondaggio=$row["idd"];
+						$categ=$_POST["categoria"];
+		                foreach ($categ as $c)
+						{
+		                     $querycategoria="INSERT INTO topic2 (nomec,idd) VALUES ('$c','$idd_sondaggio')";
+		                     $categoria=pg_query($dbconn, $querycategoria) or die("Errore nella query");		
+		                }
+                        $message="Domanda inserita con successo";						
                     }				   					       	
 	}
 	else

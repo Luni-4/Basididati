@@ -3,41 +3,28 @@
 ?>
 <!DOCTYPE html>
 <html>
- <head>
-   <meta charset="UTF-8">
-   <title>Profilo</title>
-   <link rel="stylesheet" type="text/css" href="Css/styles.css">		
-</head>
-  
-  <body style='background-color:#6F6'>
-			<?php
-			   $_SESSION["utente"]='mik'; //da togliere quando tutto sara' unito, implementazione farlocca
-	           if(!isset($_SESSION["utente"])){
-		           header("Location: homePage.php?message_error=9");
-			   }		
-			?>
-			<div class='top_box'></div>
-			<div id='cssmenu'>
-			<ul>
-					 <li><a href='#'><span>|Ultime Domande|</span>	</a></li>
-					   <li><a href='#'><span>|Choose category!| ----></span></a></li>
-						<li>
-							<select class='style'>
-									<option value='categoria1'>|Cucina|</option>
-									<option value='categoria2'>|Sport|</option>	
-									<option value='categoria3'>|Informatica|</option>
-									<option value='categoria4'>|Animali|</option>
-							</select>
-					   </li>
-						<li><a href='#'><span>|Vai alla tua pagina|</span></a></li>
-					   <li class='last'><a href='#'><span>|Logout|</span></a></li>
-					  
-					</ul>
-				</div>
-			<div class='left_box'></div>
-			<div class='ghost_left'></div>	
-			<div class='main_box'></div>
-			<div class='ghost_box'>					
+	<head>
+	   <meta charset="UTF-8">
+	   <title>faiDomanda</title>	
+	   <link rel="stylesheet" type="text/css" href="Css/styles.css">	
+	</head>
+	<body style="background-color:#6F6">
+		<div class="top_box"></div>
+		<div id="cssmenu">
+				<ul>
+				        <?php
+						  if(empty($_GET["utente"]))						  
+								print"<li><a href=\"withinTheService.php\"><span>|Torna Indietro|</span></a></li>";	                         
+                          else
+                          		print"<li><a href=\"rispostasondaggio.php\"><span>|Torna Indietro|</span></a></li>";	      					  
+                        ?>	
+                        <li class="last"><a href="logout.php"><span>|Logout|</span></a></li>						
+				</ul>
+		</div>
+			<div class="left_box"></div>
+			<div class="ghost_left"></div>	
+			<div class="main_box"></div>
+			<div class="ghost_box">					
 			<?php	
 					require_once "dbopen.php";
 					if(empty($_GET["utente"]))

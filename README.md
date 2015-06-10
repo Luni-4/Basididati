@@ -1,12 +1,10 @@
 # Basididati
 
 Alice:
-- Tutta parte grafica relativa a sito
-- Indentare codice, in alcuni punti si fa fatica a capire (anche mio codice non solo tuo)
-- Estrazione database e caricamento sul sito, con metodo scritto nel tema d'esame
+  GRAFICA DA FIXARE, TANTA DA QUELLO CHE NOTO! (xD)
 
 Luni:
-- Revisione totale codice progetto
+- Revisione totale codice progetto (oltre metà)
 
 Luni&Alice
 - SPIEGAZIONI.ODT (AKA ANCORA DI SALVEZZA PER AVERE VOTO ALTO)
