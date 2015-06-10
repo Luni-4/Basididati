@@ -12,7 +12,7 @@
 		<div class="top_box"></div>
 		<div id="cssmenu">
 				<ul>
-						 <li><a href="withinTheService.php"><span>|Torna Indietro|</span></a></li>
+						 <li><a href="withinTheService.php?sceltacategoria=tutti"><span>|Torna Indietro|</span></a></li>
 						 <li><a href="profiloUtente.php"><span>|Vai alla tua pagina|</span></a></li>
 						 <li class="last"><a href="logout.php"><span>|Logout|</span></a></li>		  
 				</ul>

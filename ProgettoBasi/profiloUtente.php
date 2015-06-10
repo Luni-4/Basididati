@@ -14,7 +14,7 @@
 				<ul>
 				        <?php
 						  if(empty($_GET["utente"]))						  
-								print"<li><a href=\"withinTheService.php\"><span>|Torna Indietro|</span></a></li>";	                         
+								print"<li><a href=\"withinTheService.php?sceltacategoria=tutti\"><span>|Torna Indietro|</span></a></li>";	                         
                           else
                           		print"<li><a href=\"rispostasondaggio.php\"><span>|Torna Indietro|</span></a></li>";	      					  
                         ?>	
