@@ -19,8 +19,8 @@
 		?>
 			<div class="top_box"></div>
 			<div id="cssmenu">
-			<ul><ul>
-					 <li><a href="sondaggiorisp.php"><span>|Fai/Modifica Sondaggio|</span>	</a></li>
+			<ul>
+					 <li><a href="sondaggiorisp.php"><span>|Fai/Modifica Sondaggio|</span></a></li>
 					   <li><a href="faidomanda.php"><span>|Fai/Modifica Domanda|</span></a></li> 
 				
 						<li>Categoria
@@ -43,17 +43,17 @@
 						</li>
 						<li><a href="profiloUtente.php"><span>|Vai alla tua pagina|</span></a></li>
 					   <li class="last"><a href="logout.php"><span>|Logout|</span></a></li>
-					  
-					</ul>
-					  
 					</ul>
 				</div>
 			<div class="main_box">
 			<div class="ghost_box">
 			<?php	
+					if(isset($_GET["sceltacategoria"])) //questo controllo serve nel caso in cui un utente decidesse di tornare indietro da altre pagine a quella principale
 					    $sceltacategoria=$_GET["sceltacategoria"];
-					
+					else
+						$sceltacategoria="tutti";
 						// Query per creare vista di categorie associate a quel utente
+						//Tale vista e' creata perche' viene utilizzata in piu query per sondaggio e domanda, evitiamo cosi di ripetere la stessa query
 						if($sceltacategoria=="tutti")
 							$queryview="CREATE OR REPLACE VIEW preferenzaUtente(nome,nomec) as 
 										SELECT nome,nomec
@@ -69,7 +69,7 @@
 						//Query per trovare domande aperte e sondaggi più recenti relativi alle categorie scelte dall'utente connesso
 						if($query_create_view)
 						{       
-								//query per domanda
+								//query per trovare le domande
 								$querydomanda="SELECT DISTINCT nome,titolo,testo,datad,idd
 											   FROM domandaperta NATURAL JOIN topic1
 											   WHERE datad > CURRENT_TIMESTAMP - INTERVAL '7 days' AND topic1.nomec IN (SELECT nomec FROM preferenzaUtente)";   
@@ -80,7 +80,8 @@
 									print "<div style='color:black;font-size:30px'>Domande: </div>";
 									while($row=pg_fetch_assoc($query_res))
 									{   
-								        print "<div style='background-color:#00CC99;width:750px;padding-left:10px;font-size:20px'> Utente: ".$row["nome"]." , Titolo: ".$row["titolo"]." , Data: ".$row["datad"]." , Categorie: "; 
+										print "<br>";
+								        print "<div style='background-color:#00CC99;width:750px;padding-left:10px;font-size:20px'> Utente: ".$row["nome"]." , Titolo: ".$row["titolo"]." , Data: ".$row["datad"]." , Categoria: "; 
 										$iden=$row["idd"];
 										$querycateg="SELECT nomec 
 										             FROM topic1
@@ -101,7 +102,7 @@
 										   exit("Errore nella query: ".pg_last_error($dbconn));
 									   
 									    print"<a href=\"rispostadomanda.php?idd=$row[idd]\">Risposta</a><br></div>";
-										print "<div style='background-color:white;width:750px;color:black;padding-left:10px;font-size:20px'>".$row["testo"]."<br></div>";
+										print "<div style='background-color:white;width:750px;color:black;padding-left:10px;font-size:20px'>Testo :".$row["testo"]."<br></div>";
 									}// while domande
 								}
 								else
@@ -109,7 +110,7 @@
 
 							   
 								
-								//query per sondaggio
+								//query per visualizzare i sondaggi
 								$querysondaggio="SELECT DISTINCT nome,titolo,testo,datad,idd
 												 FROM sondaggio NATURAL JOIN topic2
 												 WHERE datad > CURRENT_TIMESTAMP - INTERVAL '7 days' AND topic2.nomec IN (SELECT nomec FROM preferenzaUtente)";
@@ -153,7 +154,7 @@
 			<div class='left_box'>
 					
 			<?php
-			                //controllo se l'utente e' vip	
+			                //codice che controlla ed eventualmente esegue la promozione dell'utente normale a vip
 							print "<img src='Immagini/user.png' style='width:150px;height:150px;position:absolute;top:50px'>";
 							$query="SELECT nome,tipo
 									FROM utente
@@ -171,33 +172,48 @@
 									{
 										print"Ciao ".$row["nome"]." !<br> Utente di tipo: ".$typeuser;
 										//query per aggiornare il profilo dell'utente
-										$query="SELECT COUNT(*) AS numrisposte
-												FROM rispostaperta NATURAL JOIN utente
-												WHERE utente.nome='$user'";
+										$query="SELECT voto,COUNT(*) AS votopositivo
+												FROM voto JOIN rispostaperta ON voto.idr=rispostaperta.idr
+												WHERE rispostaperta.nome = '$user'
+												GROUP BY voto
+												HAVING voto = 'TRUE'
+												";
 										
 										$query_res=pg_query($dbconn,$query);
 									    if($query_res)
 										{
 										       $row=pg_fetch_assoc($query_res);
-										       $numrisposte=$row["numrisposte"];
-										       $query="SELECT SUM(votopositivo) AS votipositivi, SUM(votonegativo) AS votinegativi
-												       FROM rispostaperta
-												       WHERE nome='$user'";
+										       $votipositivi=$row["votopositivo"];
+										       $query="SELECT voto,COUNT(*) AS votonegativo
+														FROM voto JOIN rispostaperta ON voto.idr=rispostaperta.idr
+														WHERE rispostaperta.nome = '$user'
+														GROUP BY voto
+														HAVING voto = 'FALSE'
+														";
 													   
 										       $query_res=pg_query($dbconn,$query);
 											   
 										       if($query_res)
 											   {											   
 											         $row=pg_fetch_assoc($query_res);
-											         $votipositivi=$row["votipositivi"];
-											         $votinegativi=$row["votinegativi"];
-											         if($numrisposte==2 && $votipositivi>=$votinegativi)
-													 {
-												            $query="UPDATE utente SET tipo='vip' WHERE nome='$user'";  //promozione a vip
-												            $query_res=pg_query($dbconn,$query);
-												            if(!$query_res)												
-													            exit("Errore nella query: ".pg_last_error($dbconn));													             
-													 }			 
+											         $votinegativi=$row["votonegativo"];
+													 $query="SELECT COUNT(*) AS numrisp
+															FROM rispostaperta
+															WHERE rispostaperta.nome = '$user'
+															";
+													 $query_res=pg_query($dbconn,$query); 
+													  if($query_res){
+														$row=pg_fetch_assoc($query_res);
+														$numrisposte=$row["numrisp"];
+														 if($numrisposte>=5 && $votipositivi>=$votinegativi){
+															$query="UPDATE utente SET tipo='vip' WHERE nome='$user'";  //promozione a vip
+															$query_res=pg_query($dbconn,$query);
+															if(!$query_res)												
+																exit("Errore nella query: ".pg_last_error($dbconn));													             
+														 }	
+													 }
+															else 
+																exit("Errore nella query: ".pg_last_error($dbconn));
 											    }
 												else							                    
 							                        exit("Errore nella query: ".pg_last_error($dbconn));

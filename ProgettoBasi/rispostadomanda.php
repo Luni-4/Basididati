@@ -13,8 +13,8 @@
 	<div class='top_box'></div>
 	<div id='cssmenu'>
 			<ul>
-					 <li><a href='withinTheService'><span>|Torna Indietro|</span>	</a></li>
-					 <li><a href='#'><span>|Vai alla tua pagina|</span></a></li>
+					 <li><a href='withinTheService.php'><span>|Torna Indietro|</span>	</a></li>
+					 <li><a href='profiloUtente.php'><span>|Vai alla tua pagina|</span></a></li>
 					 <li class='last'><a href='logout.php'><span>|Logout|</span></a></li>		  
 			</ul>
 	</div>
@@ -23,7 +23,7 @@
 		<form action="risposta.php" method="GET">
 		  Risposta: <textarea name="risposta" rows="4" cols="150" > Inserisci qui la tua risposta!</textarea><br>
 		  <input type="checkbox" name="anonimo" class="error"> Anonimo<br>
-		  <input type="submit" value="Invia Risposta" class="myButton" style="position:absolute;right:100px">
+		  <input type="submit" value="Invia Risposta" class="myButton" style="position:absolute;top:300px;right:100px">
 		</form>
 
  <?php

@@ -1,7 +1,7 @@
 <?php //pagina di controllo
 	session_start();
 	require_once "dbopen.php";
-	if(!isset($_GET["idd"])) //ulteriori controlli anche se abbiamo required per evitare problemi legati alla session
+	if(!isset($_GET["idd"]))
 	{
 					$titolo=$_POST["titolo"];
 					$testo=$_POST["testo"];

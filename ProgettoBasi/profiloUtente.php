@@ -21,9 +21,10 @@
                         <li class="last"><a href="logout.php"><span>|Logout|</span></a></li>						
 				</ul>
 		</div>
-			<div class="left_box"></div>
-			<div class="ghost_left"></div>	
-			<div class="main_box"></div>
+			<div class="left_box">Benvenuto nel tuo profilo!
+				<img src='Immagini/user.png' style='width:150px;height:150px;position:absolute;top:50px;left:90px'>
+			</div>
+			<div class="main_box">
 			<div class="ghost_box">					
 			<?php	
 					require_once "dbopen.php";
@@ -40,6 +41,7 @@
 					{
 						$ut=pg_fetch_assoc($utentequery);
 						// Stampare valori tupla utente
+						print "<p style='color:black;position:absolute;left:200px;font-size:40px;top:-40px'> Informazioni personali: </p>";
 					    print "<div style='background-color:#00CC99;width:675px;padding-left:10px'>";
 						     print "<p>Username: ".$utente."</p>\n";
 						     print "<p>Email: ".$ut["email"]."</p>\n";
@@ -52,5 +54,6 @@
 						exit("Errore nella query: ".pg_last_error($dbconn));								 
 			?>
 			</div>
+		</div>
   </body>
 </html>

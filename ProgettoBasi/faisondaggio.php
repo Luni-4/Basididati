@@ -55,7 +55,7 @@
 			     for($i=0; $i<$risp; $i++)
 						  print"<input type='text' name='$i' size='100' required><br>";					  
 			   ?>
-			   <input type="submit" value="Invia Sondaggio" class="myButton" style="position:absolute;right:100px;top:150px">
+			   <input type="submit" value="Invia Sondaggio" class="myButton" style="position:absolute;right:100px;top:75px">
 		  </form>	 
 	      </b></div>
 	      <div class="ghost_utility">	
