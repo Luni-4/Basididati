@@ -109,6 +109,6 @@ CREATE TABLE Voto
 		 idr integer NOT NULL REFERENCES Rispostaperta(idr)
 		 				  ON DELETE CASCADE
 						  ON UPDATE CASCADE,		
-		 voto BOOLEAN,
+		 voto BOOLEAN DEFAULT FALSE,
 		 PRIMARY KEY(nome,idr)	  	
 		);
