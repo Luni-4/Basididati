@@ -58,7 +58,7 @@
 			print "<u> Stato</u>: Aperta </b></h2>";
 		else
 			print "<u> Stato</u>: Chiusa </b></h2>";
-		$querydomanda="SELECT anonimo,nome,datar,testorisp,votopositivo,votonegativo,idr
+		$querydomanda="SELECT anonimo,nome,datar,testorisp,idr
 	    				FROM rispostaperta 
 						WHERE idd='$idd'
 						ORDER BY datar";//mostro sotto le relative risposte
