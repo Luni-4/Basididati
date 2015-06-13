@@ -21,8 +21,8 @@
                         <li class="last"><a href="logout.php"><span>|Logout|</span></a></li>						
 				</ul>
 		</div>
-			<div class="left_box">Benvenuto nel tuo profilo!
-				<img src='Immagini/user.png' style='width:150px;height:150px;position:absolute;top:50px;left:90px'>
+			<div class="left_box">Profilo Utente
+				<img src='Immagini/user.png' style='width:150px;height:150px;position:absolute;top:50px;left:25px'>
 			</div>
 			<div class="main_box">
 			<div class="ghost_box">					

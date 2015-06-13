@@ -29,7 +29,7 @@
 	   {
     ?>
 				<form action="domanda.php" method="POST">	     
-					Seleziona categoria: Al massimo puoi riferirti a due topic! <br>
+					Seleziona categoria: Usa ctrl + left mouse per una selezione multipla! <br>
 					<select name="categoria[]" class="style" multiple="multiple" tabindex="1" required>						   
 						   <?php
 						      require_once "dbopen.php";
@@ -46,9 +46,9 @@
 							?>					
 					</select>					
 					<br>
-					Titolo domanda<input type="text" name="titolo" size="50" required><br>
+					Titolo domanda<input type="text" name="titolo" size="50" maxlength="50" required><br>
 					Poni domanda<textarea name="testo" rows="4" cols="150" required> Inserisci qui la domanda!</textarea><br>
-					Carica la tua Immagine<input type="url" name="imgurl"><br>
+					Carica la tua Immagine<input type="url" name="imgurl" ><br>
 					Descrizione immagine<input type="text" name="imgtesto" size="50"><br>
 					<input type="submit" value="Invia Domanda" class="myButton" style="position:absolute;right:100px;top:100px">
 				</form>	 

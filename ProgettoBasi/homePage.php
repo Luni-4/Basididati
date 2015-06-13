@@ -23,8 +23,8 @@
 							$nome="value=".$_GET["user"];
 						if(isset($_GET["email"]))
 							$em="value=".$_GET["email"];
-						print"<p class=\"submit\">Username : </p><input type=\"text\" name=\"user\" $nome maxlength=\"16\" required>\n";
-						print"<p class=\"submit\">	Email : </p><input type=\"email\" name=\"email\" $em maxlength=\"16\" required>\n";										
+						print"<p class=\"submit\">Username : </p><input type=\"text\" name=\"user\" $nome maxlength=\"20\" required>\n";
+						print"<p class=\"submit\">	Email : </p><input type=\"email\" name=\"email\" $em maxlength=\"20\" required>\n";										
 					?>
 					<p class="submit">	Password : </p><input type="password" name="pass" maxlength="16" required>
 					<p align="center"><input type="submit" value="Accedi"></p>

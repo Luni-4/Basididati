@@ -126,7 +126,7 @@
 										             FROM topic2
 													 WHERE idd='$iden'";
 									    $query_c=pg_query($dbconn,$querycateg);										
-										if($query_c)
+										if($query_c)//questa ulteriore query serve nel caso un sondaggio si riferisca a piu topic
 										{
 											   for($i=0; $i<pg_num_rows($query_c)-1; $i++)
 											   {
@@ -140,7 +140,7 @@
 										else
 										   exit("Errore nella query: ".pg_last_error($dbconn));
 									   
-									    print"<a href=\"rispostasondaggio.php?idd=$row[idd]\">Mostra</a><br></div>";										
+									    print"<a href=\"rispostasondaggio.php?idd=$row[idd]\">Mostra</a></div><br>";										
 									}// while sondaggio
 								}
 								else

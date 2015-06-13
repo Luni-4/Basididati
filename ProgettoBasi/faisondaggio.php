@@ -29,7 +29,7 @@
 	   {
     ?>
 	      <form action="sondaggio.php" method=POST>	     
-			    Seleziona categoria: Al massimo puoi riferirti a due topic! <br>
+			    Seleziona categoria: Usa ctrl + left mouse per una selezione multipla!  <br>
 			    <select name="categoria[]" class="style" multiple="multiple" tabindex="1" required>						   
 						   <?php
 						      require_once "dbopen.php";
@@ -46,7 +46,7 @@
 							?>					
 			   </select>					
 			   <br>
-		       Titolo sondaggio<input type="text" name="titolo" size="50" required><br>
+		       Titolo sondaggio<input type="text" name="titolo" maxlength="50" size="50" required><br>
 			   Testo sondaggio<textarea name="risposta" rows="4" cols="150" required></textarea><br>
 			   Url immagine<input type="url" name="imgurl"><br>
 			   Descrizione immagine<input type="text" name="imgtesto" size="50"><br>

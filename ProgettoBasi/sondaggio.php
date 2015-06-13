@@ -34,7 +34,7 @@
 		                     $querycategoria="INSERT INTO topic2 (nomec,idd) VALUES ('$c','$idd_sondaggio')";
 		                     $categoria=pg_query($dbconn, $querycategoria) or die("Errore nella query");		
 		                }
-                        $message="Domanda inserita con successo";						
+                        $message="Sondaggio inserito con successo";						
                     }				   					       	
 	}
 	else

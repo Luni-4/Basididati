@@ -39,12 +39,12 @@
 				 {
 					$row=pg_fetch_row($query_res);
 					if($row[3]!=NULL)
-						print "<img src=$row[imgurl] style='width:304px;height:228px;position:absolute;right:100px'>";
+						print "<img src='$row[3]' style='width:304px;height:228px;position:absolute;right:100px;'>";
 					else
-						print "<img src='Immagini/image_not_found.jpg' style='width:304px;height:228px;position:absolute;right:100px'>";
+						print "<img src='Immagini/image_not_found.jpg' style='width:304px;height:228px;position:absolute;right:100px;'>";
 						
 					if($row[4]!=NULL)
-						print "<div style='position:absolute;right:100px'><u>Descrizione Immagine: </u>".$row["imgtesto"]."</div><br><br>";
+						print "<div style='position:absolute;right:100px;top:300px;'><u>Descrizione Immagine: </u>".$row[4]."</div><br><br>";
 					else
 						print "<div style='position:absolute;right:100px;top:300px'><u>Descrizione Immagine: </u> Non disponibile </div><br><br>";
 					if($row[2] == 't'){

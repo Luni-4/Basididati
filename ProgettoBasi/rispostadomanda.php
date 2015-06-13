@@ -45,7 +45,7 @@
 		print "<h2><b>Domanda: </h2>";
 		print "<h3><u><b>Titolo: </u>".$row["titolo"]."<br>";
 		if($row["imgurl"]!=NULL)
-			print "<img src=$row[imgurl] style='width:304px;height:228px;position:center'>";
+			print "<img src='$row[imgurl]' style='width:304px;height:228px;position:center'>";
 		else
 			print "<img src='Immagini/image_not_found.jpg' style='width:304px;height:228px;position:center'>";
 			
