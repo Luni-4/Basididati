@@ -35,10 +35,10 @@ CREATE TABLE Domandaperta
     titolo VARCHAR(50) NOT NULL,					
 	datad TIMESTAMP DEFAULT CURRENT_TIMESTAMP,	
 	testo TEXT NOT NULL,
-	imgurl VARCHAR(50),
+	imgurl TEXT,
 	imgtesto TEXT,
 	chiusa BOOLEAN DEFAULT FALSE,-- quando un utente viene eliminato questo campo diventa true.
-	nome VARCHAR(20) DEFAULT NULL REFERENCES Utente(nome)
+	nome VARCHAR(20) NOT NULL REFERENCES Utente(nome)
 				ON DELETE SET NULL
 				ON UPDATE CASCADE,
 	PRIMARY KEY (idd)
@@ -49,10 +49,10 @@ CREATE TABLE Sondaggio
     titolo VARCHAR(50) NOT NULL,	
 	datad TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	testo TEXT NOT NULL,
-	imgurl VARCHAR(50),
+	imgurl TEXT,
 	imgtesto TEXT,
 	chiusa BOOLEAN DEFAULT FALSE,-- quando un utente viene eliminato questo campo diventa true.
-	nome VARCHAR(20) DEFAULT NULL REFERENCES Utente(nome)
+	nome VARCHAR(20) NOT NULL REFERENCES Utente(nome)
 				     ON DELETE SET NULL
 				     ON UPDATE CASCADE,
 	PRIMARY KEY (idd)

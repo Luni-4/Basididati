@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.3.6
 -- Dumped by pg_dump version 9.3.6
--- Started on 2015-06-13 15:16:06
+-- Started on 2015-06-13 15:25:22
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -311,7 +311,7 @@ alice	32	t
 \.
 
 
--- Completed on 2015-06-13 15:16:08
+-- Completed on 2015-06-13 15:25:23
 
 --
 -- PostgreSQL database dump complete
