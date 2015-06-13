@@ -47,7 +47,7 @@
 					</select>					
 					<br>
 					Titolo domanda<input type="text" name="titolo" size="50" maxlength="50" required><br>
-					Poni domanda<textarea name="testo" rows="4" cols="150" required> Inserisci qui la domanda!</textarea><br>
+					Poni domanda<br><textarea name="testo" rows="4" cols="100" required> Inserisci qui la domanda!</textarea><br>
 					Carica la tua Immagine<input type="url" name="imgurl" ><br>
 					Descrizione immagine<input type="text" name="imgtesto" size="50"><br>
 					<input type="submit" value="Invia Domanda" class="myButton" style="position:absolute;right:100px;top:100px">

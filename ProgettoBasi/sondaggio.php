@@ -12,7 +12,7 @@
                          $testo=$testo."<input type=radio name=sonda value=".$_POST[$i]." required>".$_POST[$i]."<br>";					
 					$titolo=$_POST["titolo"];		
                     $nome=$_SESSION['user'];					
-					$imgtesto="'".$_POST["imgtesto"]."'";;
+					$imgtesto="'".$_POST["imgtesto"]."'";
 					if(!empty($_POST["imgurl"]))
 						$imgurl="'".$_POST["imgurl"]."'";						
 					else

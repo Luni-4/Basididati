@@ -47,7 +47,7 @@
 			   </select>					
 			   <br>
 		       Titolo sondaggio<input type="text" name="titolo" maxlength="50" size="50" required><br>
-			   Testo sondaggio<textarea name="risposta" rows="4" cols="150" required></textarea><br>
+			   Testo sondaggio<br><textarea name="risposta" rows="4" cols="100" required></textarea><br>
 			   Url immagine<input type="url" name="imgurl"><br>
 			   Descrizione immagine<input type="text" name="imgtesto" size="50"><br>
 			   <?php
