@@ -19,16 +19,21 @@
 		?>
 			<div class="top_box"></div>
 			<div id="cssmenu">
-			<ul>
-					 <li><a href="sondaggiorisp.php"><span>|Fai/Modifica Sondaggio|</span></a></li>
-					   <li><a href="faidomanda.php"><span>|Fai/Modifica Domanda|</span></a></li> 
-				
-						<li>Categoria
+				<ul>
+					<li><a href="sondaggiorisp.php"><span>|Fai/Modifica Sondaggio|</span></a></li>
+					<li><a href="faidomanda.php"><span>|Fai/Modifica Domanda|</span></a></li> 
+					<li><a href="profiloUtente.php"><span>|Vai alla tua pagina|</span></a></li>
+					<li class="last"><a href="logout.php"><span>|Logout|</span></a></li>
+				</ul>
+			</div>
+			<nav id="primary_nav_wrap">
+				<ul>
+					<li>Categoria
 						<ul>
-							<li><a href="withinTheService.php?sceltacategoria=tutti">Tutti</a></li>
+							<li class="current-menu-item"><a href="withinTheService.php?sceltacategoria=tutti">Tutti</a></li>
 						   <?php
-						      require_once "dbopen.php";	
-						      $user=$_SESSION["user"];
+							  require_once "dbopen.php";	
+							  $user=$_SESSION["user"];
 							  $querydomanda="SELECT nomec
 											 FROM preferenza
 											 WHERE nome='$user'";
@@ -39,12 +44,10 @@
 							  else		                
 									exit("Errore nella query: ".pg_last_error($dbconn));
 							?>					
-							</ul>
-						</li>
-						<li><a href="profiloUtente.php"><span>|Vai alla tua pagina|</span></a></li>
-					   <li class="last"><a href="logout.php"><span>|Logout|</span></a></li>
-					</ul>
-				</div>
+						</ul>
+					</li>
+				</ul>
+			</nav>
 			<div class="main_box">
 			<div class="ghost_box">
 			<?php	

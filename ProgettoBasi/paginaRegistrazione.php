@@ -28,7 +28,7 @@
 						<p>*Ripeti la password</p>
 							<input type="password" name="passConfirm" maxlength="16" required>
 						<p>Data di Nascita</p>
-						<table>
+						<table style="position:absolute;top:500px;left:575px;">
 						  <tr>
 						    <td>
 							    <select name="giorno">
@@ -291,7 +291,7 @@
                             </td>
 						  </tr>
 						</table>
-						<p>Residenza</p>
+						<p style="padding-top:40px;">Residenza</p>
 							<input type="text" name="residenza">
 						<p>Scegli una categoria di interesse <br></p>
 						<p>(N.B: Devi scegliere almeno una categoria di interesse)</p>
