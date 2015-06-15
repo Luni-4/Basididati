@@ -28,10 +28,10 @@
 						<p>*Ripeti la password</p>
 							<input type="password" name="passConfirm" maxlength="16" required>
 						<p>Data di Nascita</p>
-						<table style="position:absolute;top:500px;left:575px;">
+						<table>
 						  <tr>
 						    <td>
-							    <select name="giorno" >
+							    <select name="giorno">
 									  <option value=""></option>
 									  <option value="1">1</option>
 									  <option value="2">2</option>
@@ -291,7 +291,7 @@
                             </td>
 						  </tr>
 						</table>
-						<p style="padding-top:40px;">Residenza</p>
+						<p>Residenza</p>
 							<input type="text" name="residenza">
 						<p>Scegli una categoria di interesse <br></p>
 						<p>(N.B: Devi scegliere almeno una categoria di interesse)</p>
@@ -334,7 +334,6 @@
 									   exit("Errore nella query: ".pg_last_error($dbconn));
 								  }// function			 
 							?> 
-
 						<div class="btn">
 						  <p>Invia registrazione</p>
 							<input type="submit" value="Invia">  

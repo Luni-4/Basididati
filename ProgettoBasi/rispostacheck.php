@@ -2,7 +2,7 @@
 	session_start();
 	require_once "dbopen.php";	
 
-	if(isset($_POST["sonda"]) && isset($_SESSION["user"]) && isset($_SESSION["idds"]))
+	if(isset($_SESSION["user"]) && isset($_SESSION["idds"]))
 	{
 		$risposta=$_POST["sonda"];
 		$user=$_SESSION["user"];
@@ -13,10 +13,9 @@
 			    $anonimo='FALSE';
 		$query="INSERT INTO rispostapredefinita(testorisp,nome,idd,anonimo) VALUES ('$risposta','$user','$idd',$anonimo)";
 		$query_insert=pg_query($dbconn,$query); 
-		if($query_insert)
-		{		
+		if($query_insert)			
 			    $message="Risposta inserita con successo";		
-	    }else
+	    else
 			$message="Impossibile inviare la risposta";	        			  
 	}
 	else

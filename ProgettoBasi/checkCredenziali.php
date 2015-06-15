@@ -19,6 +19,6 @@
 	    $_SESSION["user"]=$user;
 	
 	    // Invio domanda
-	    Header("Location: withinTheService.php?sceltacategoria=tutti");	
+	    Header("Location: withinTheService.php");	
 	}	
 ?>

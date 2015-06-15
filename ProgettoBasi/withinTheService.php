@@ -19,58 +19,54 @@
 		?>
 			<div class="top_box"></div>
 			<div id="cssmenu">
-				<ul>
-						<li><a href="sondaggiorisp.php"><span>|Fai/Modifica Sondaggio|</span></a></li>
-						<li><a href="faidomanda.php"><span>|Fai/Modifica Domanda|</span></a></li> 
-						<li><a href="profiloUtente.php"><span>|Vai alla tua pagina|</span></a></li>
-						<li class="last"><a href="logout.php"><span>|Logout|</span></a></li>
-				</ul>
-			</div>
-			<nav id="primary_nav_wrap">
 			<ul>
-				<li>Categoria
-					<ul>
-						<li class="current-menu-item"><a href="withinTheService.php?sceltacategoria=tutti">Tutti</a></li>
-					   <?php
-					      require_once "dbopen.php";	
-					      $user=$_SESSION["user"];
-						  $querydomanda="SELECT nomec
-										 FROM preferenza
-										 WHERE nome='$user'";
-						  $query=pg_query($dbconn,$querydomanda);//per stampare le categorie di preferenza
-						  if($query)
-							  while($row=pg_fetch_assoc($query))
-									print "<li><a href=\"withinTheService.php?sceltacategoria=$row[nomec]\">$row[nomec]</a></li>";
-						  else		                
-								exit("Errore nella query: ".pg_last_error($dbconn));
-						?>					
+					 <li><a href="sondaggiorisp.php"><span>|Fai/Modifica Sondaggio|</span></a></li>
+					   <li><a href="faidomanda.php"><span>|Fai/Modifica Domanda|</span></a></li> 
+				
+						<li>Categoria
+						<ul>
+							<li><a href="withinTheService.php?sceltacategoria=tutti">Tutti</a></li>
+						   <?php
+						      require_once "dbopen.php";	
+						      $user=$_SESSION["user"];
+							  $querydomanda="SELECT nomec
+											 FROM preferenza
+											 WHERE nome='$user'";
+							  $query=pg_query($dbconn,$querydomanda);//per stampare le categorie di preferenza
+							  if($query)
+								  while($row=pg_fetch_assoc($query))
+										print "<li><a href=\"withinTheService.php?sceltacategoria=$row[nomec]\">$row[nomec]</a></li>";
+							  else		                
+									exit("Errore nella query: ".pg_last_error($dbconn));
+							?>					
+							</ul>
+						</li>
+						<li><a href="profiloUtente.php"><span>|Vai alla tua pagina|</span></a></li>
+					   <li class="last"><a href="logout.php"><span>|Logout|</span></a></li>
 					</ul>
-				</ul>
-			</nav>
-			
-			
-			
-			
-			
+				</div>
 			<div class="main_box">
 			<div class="ghost_box">
 			<?php	
-					if(isset($_GET["sceltacategoria"])) //questo controllo serve nel caso in cui un utente decidesse di tornare indietro da altre pagine a quella principale
+					if(isset($_GET["sceltacategoria"])) 
+					{   
+				        //questo controllo serve nel caso in cui un utente decidesse di tornare indietro da altre pagine a quella principale
 					    $sceltacategoria=$_GET["sceltacategoria"];
+						$queryview="CREATE OR REPLACE VIEW preferenzaUtente(nome,nomec) as 
+									SELECT nome,nomec
+									FROM preferenza
+									WHERE nome='$user' AND nomec='$sceltacategoria'";
+					}
 					else
-						$sceltacategoria="tutti";
+					{
 						// Query per creare vista di categorie associate a quel utente
-						//Tale vista e' creata perche' viene utilizzata in piu query per sondaggio e domanda, evitiamo cosi di ripetere la stessa query
-						if($sceltacategoria=="tutti")
-							$queryview="CREATE OR REPLACE VIEW preferenzaUtente(nome,nomec) as 
-										SELECT nome,nomec
-										FROM preferenza
-										WHERE nome='$user'";
-						else			
-							$queryview="CREATE OR REPLACE VIEW preferenzaUtente(nome,nomec) as 
-										SELECT nome,nomec
-										FROM preferenza
-										WHERE nome='$user' AND nomec='$sceltacategoria'";
+						//Tale vista e' creata perche' viene utilizzata in piu query per sondaggio e domanda, evitiamo cosi di ripetere la stessa query						
+					    $queryview="CREATE OR REPLACE VIEW preferenzaUtente(nome,nomec) as 
+									SELECT nome,nomec
+									FROM preferenza
+									WHERE nome='$user'";
+					}
+					
 						$query_create_view=pg_query($dbconn,$queryview);   
 						
 						//Query per trovare domande aperte e sondaggi più recenti relativi alle categorie scelte dall'utente connesso
@@ -84,11 +80,11 @@
 								
 								if($query_res)
 								{
-									print "<div style='color:black;font-size:30px'>Domande: </div>";
+									print "<div style=\"color:black;font-size:30px\">Domande: </div>";
 									while($row=pg_fetch_assoc($query_res))
 									{   
 										print "<br>";
-								        print "<div style='background-color:#00CC99;width:750px;padding-left:10px;font-size:20px'> Utente: ".$row["nome"]." , Titolo: ".$row["titolo"]." , Data: ".$row["datad"]." , Categoria: "; 
+								        print "<div style=\"background-color:#00CC99;width:750px;padding-left:10px;font-size:20px\"> Utente: ".$row["nome"]." , Titolo: ".$row["titolo"]." , Data: ".$row["datad"]." , Categoria: "; 
 										$iden=$row["idd"];
 										$querycateg="SELECT nomec 
 										             FROM topic1
@@ -109,7 +105,7 @@
 										   exit("Errore nella query: ".pg_last_error($dbconn));
 									   
 									    print"<a href=\"rispostadomanda.php?idd=$row[idd]\">Risposta</a><br></div>";
-										print "<div style='background-color:white;width:750px;color:black;padding-left:10px;font-size:20px'>Testo :".$row["testo"]."<br></div>";
+										print "<div style=\"background-color:white;width:750px;color:black;padding-left:10px;font-size:20px\">Testo :".$row["testo"]."<br></div>";
 									}// while domande
 								}
 								else
@@ -124,10 +120,10 @@
 								$query_res=pg_query($dbconn,$querysondaggio);
 								if($query_res)
 								{
-									print "<div style='color:black;font-size:30px'>Sondaggi: </div>";
+									print "<div style=\"color:black;font-size:30px\">Sondaggi: </div>";
 									while($row=pg_fetch_assoc($query_res))
 									{   
-								        print "<div style='background-color:#00CC99;width:750px;padding-left:10px;font-size:20px'> Utente: ".$row["nome"]." , Titolo: ".$row["titolo"]." , Data: ".$row["datad"]." , Categorie: "; 
+								        print "<div style=\"background-color:#00CC99;width:750px;padding-left:10px;font-size:20px\"> Utente: ".$row["nome"]." , Titolo: ".$row["titolo"]." , Data: ".$row["datad"]." , Categorie: "; 
 										$iden=$row["idd"];
 										$querycateg="SELECT nomec 
 										             FROM topic2
@@ -158,7 +154,7 @@
 							exit("Errore nella query: ".pg_last_error($dbconn));						
             ?>	</div>				
 			</div>
-			<div class='left_box'>
+			<div class="left_box">
 					
 			<?php
 			                //codice che controlla ed eventualmente esegue la promozione dell'utente normale a vip
@@ -209,18 +205,20 @@
 															WHERE rispostaperta.nome = '$user'
 															";
 													 $query_res=pg_query($dbconn,$query); 
-													  if($query_res){
-														$row=pg_fetch_assoc($query_res);
-														$numrisposte=$row["numrisp"];
-														 if($numrisposte>=5 && $votipositivi>=$votinegativi){
+													  if($query_res)
+													  {
+														 $row=pg_fetch_assoc($query_res);
+														 $numrisposte=$row["numrisp"];
+														 if($numrisposte>=5 && $votipositivi>=$votinegativi)
+														 {
 															$query="UPDATE utente SET tipo='vip' WHERE nome='$user'";  //promozione a vip
 															$query_res=pg_query($dbconn,$query);
 															if(!$query_res)												
 																exit("Errore nella query: ".pg_last_error($dbconn));													             
 														 }	
-													 }
-															else 
-																exit("Errore nella query: ".pg_last_error($dbconn));
+													  }
+													  else 
+														 exit("Errore nella query: ".pg_last_error($dbconn));
 											    }
 												else							                    
 							                        exit("Errore nella query: ".pg_last_error($dbconn));

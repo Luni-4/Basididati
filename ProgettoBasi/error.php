@@ -11,7 +11,7 @@
 	  
    		$err=$_GET["message_error"];	
 		switch ($err) 
-		   {
+		{
 				case 0:		
 				  echo"<h1>Username non trovato</h1>\n";
 				  echo"<h3>Lo username inserito non è corretto</h3>\n";
@@ -62,5 +62,5 @@
                 break;	
 				default:
 					echo"Errore nel sistema\n";
-		   } 
+		} 
  ?>       

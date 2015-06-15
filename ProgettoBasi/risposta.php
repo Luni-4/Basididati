@@ -1,16 +1,14 @@
 <?php
-
 	session_start();
 	require_once "dbopen.php";
-	$message="";
-	//$idd="";
-	if(isset($_GET["risposta"]) && isset($_SESSION["user"]) && isset($_SESSION["idd"]) && isset($_SESSION["chiusa"])){
-		$risposta=$_GET["risposta"];
+	if(isset($_SESSION["user"]) && isset($_SESSION["idd"]) && isset($_SESSION["chiusa"])){
+		$risposta=$_POST["risposta"];
 		$user=$_SESSION["user"];
 		$idd=$_SESSION["idd"];
 		$chiusa=$_SESSION["chiusa"];
-		if($chiusa=='f'){
-			if(isset($_GET["anonimo"]))
+		if($chiusa=='f')
+		{
+			if(isset($_POST["anonimo"]))
 				$anonimo='TRUE';
 			else
 				$anonimo='FALSE';
@@ -20,10 +18,11 @@
 				$message="Risposta inserita con successo";			
 			else
 				exit("Errore nella query: ".pg_last_error($dbconn));
-		}else
-			$message="Ops, la domanda e' stata chiusa, impossibile inviare una risposta !";
+		}
+		else
+			$message="Ops, la domanda è stata chiusa, impossibile inviare una risposta !";
 	}
 	else
 		$message="Errore nel servizio, riprovare a caricare";
-	header("Location: rispostadomanda.php?message=$message&anonimo=$anonimo&idd=$idd");
+	header("Location: rispostadomanda.php?message=$message");
 ?>

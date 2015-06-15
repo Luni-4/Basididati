@@ -12,7 +12,7 @@
 		<div class="top_box"></div>
 		<div id="cssmenu">
 				<ul>
-						 <li><a href="withinTheService.php?sceltacategoria=tutti"><span>|Torna Indietro|</span></a></li>
+						 <li><a href="withinTheService.php"><span>|Torna Indietro|</span></a></li>
 						 <li><a href="profiloUtente.php"><span>|Vai alla tua pagina|</span></a></li>
 						 <li class="last"><a href="logout.php"><span>|Logout|</span></a></li>		  
 				</ul>
@@ -22,9 +22,8 @@
 			
     <?php	   
 	   $user=$_SESSION["user"];	   
-	   if(isset($_GET["message"])){
-		 print "<h3 style='color:red'>".$_GET["message"]."</h3>";		 
-	   }
+	   if(isset($_GET["message"]))
+		 print "<h3 style=\"color:red\">".$_GET["message"]."</h3>";      
 	   else
 	   {
     ?>
@@ -47,7 +46,7 @@
 					</select>					
 					<br>
 					Titolo domanda<input type="text" name="titolo" size="50" maxlength="50" required><br>
-					Poni domanda<br><textarea name="testo" rows="4" cols="100" required> Inserisci qui la domanda!</textarea><br>
+					Poni domanda<br><textarea name="testo" rows="4" cols="100" required></textarea><br>
 					Carica la tua Immagine<input type="url" name="imgurl" ><br>
 					Descrizione immagine<input type="text" name="imgtesto" size="50"><br>
 					<input type="submit" value="Invia Domanda" class="myButton" style="position:absolute;right:100px;top:100px">

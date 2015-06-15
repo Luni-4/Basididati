@@ -5,24 +5,19 @@
 <html>
 	<head>
 	   <meta charset="UTF-8">
-	   <title>faiDomanda</title>	
+	   <title>ProfiloUtente</title>	
 	   <link rel="stylesheet" type="text/css" href="Css/styles.css">	
 	</head>
 	<body style="background-color:#6F6">
 		<div class="top_box"></div>
 		<div id="cssmenu">
-				<ul>
-				        <?php
-						  if(empty($_GET["utente"]))						  
-								print"<li><a href=\"withinTheService.php?sceltacategoria=tutti\"><span>|Torna Indietro|</span></a></li>";	                         
-                          else
-                          		print"<li><a href=\"rispostasondaggio.php\"><span>|Torna Indietro|</span></a></li>";	      					  
-                        ?>	
+				<ul>				        						  
+						<li><a href="withinTheService.php"><span>|Torna Indietro|</span></a></li>                        
                         <li class="last"><a href="logout.php"><span>|Logout|</span></a></li>						
 				</ul>
 		</div>
 			<div class="left_box">Profilo Utente
-				<img src='Immagini/user.png' style='width:150px;height:150px;position:absolute;top:50px;left:25px'>
+				<img src="Immagini/user.png" style="width:150px;height:150px;position:absolute;top:50px;left:25px">
 			</div>
 			<div class="main_box">
 			<div class="ghost_box">					
@@ -41,8 +36,8 @@
 					{
 						$ut=pg_fetch_assoc($utentequery);
 						// Stampare valori tupla utente
-						print "<p style='color:black;position:absolute;left:200px;font-size:40px;top:-40px'> Informazioni personali: </p>";
-					    print "<div style='background-color:#00CC99;width:675px;padding-left:10px'>";
+						print "<p style=\"color:black;position:absolute;left:200px;font-size:40px;top:-40px\"> Informazioni personali: </p>";
+					    print "<div style=\"background-color:#00CC99;width:675px;padding-left:10px\">";
 						     print "<p>Username: ".$utente."</p>\n";
 						     print "<p>Email: ".$ut["email"]."</p>\n";
 						     print "<p>Residenza: ".(empty($ut["residenza"]) ? "Non pervenuta" : $ut["residenza"])."</p>\n";
