@@ -1,3 +1,4 @@
+<!--Pagina che permette la creazione di una nuova domanda aperta, la visualizzazione delle proprie vecchie domande e la loro modifica di stato (chiusa o no) -->
 <?php
 	session_start(); 
  ?>

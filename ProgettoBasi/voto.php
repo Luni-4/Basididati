@@ -1,4 +1,4 @@
-
+<!-- Pagina per la votazione di una domanda aperta con relativi controlli di possibilita' -->
 <?php
 	session_start();
 	require_once "dbopen.php";	

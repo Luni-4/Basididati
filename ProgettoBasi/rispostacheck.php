@@ -1,3 +1,4 @@
+<!--Pagina per l'inserimento delle risposte predefinite di un sondaggio -->
 <?php
 	session_start();
 	require_once "dbopen.php";	

@@ -1,3 +1,4 @@
+<!-- Pagina in cui e' possibile dare una risposta predefinita oppure guardare quante risposte predefinite sono gia' state date e da chi-->
 <?php
  session_start();   
  ?>

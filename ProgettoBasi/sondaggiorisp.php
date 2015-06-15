@@ -1,3 +1,4 @@
+<!--Questa pagina consente all'utente di decidere quante rispsote predefinite avra' il proprio sondaggio, al max 5 -->
 <!DOCTYPE html>
 <html>
 	<head>

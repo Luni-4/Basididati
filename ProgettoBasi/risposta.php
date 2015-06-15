@@ -1,3 +1,4 @@
+<!--Pagina per inviare una risposta ad una domanda aperta -->
 <?php
 	session_start();
 	require_once "dbopen.php";

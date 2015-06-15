@@ -1,5 +1,6 @@
+<!-- Pagina per l'inserimento di un sondaggio oppure per la sua modifica (chiusura)-->
 <?php 
-    //pagina di controllo
+    
 	session_start();
 	require_once "dbopen.php";
 	
@@ -29,7 +30,7 @@
 					    $row=pg_fetch_assoc($query_risp);
 						$idd_sondaggio=$row["idd"];
 						$categ=$_POST["categoria"];
-		                foreach ($categ as $c)
+		                foreach ($categ as $c)//un sondaggio si puo' riferire a molti topic
 						{
 		                     $querycategoria="INSERT INTO topic2 (nomec,idd) VALUES ('$c','$idd_sondaggio')";
 		                     $categoria=pg_query($dbconn, $querycategoria) or die("Errore nella query");		

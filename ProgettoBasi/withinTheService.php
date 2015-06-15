@@ -1,3 +1,8 @@
+<!-- Questa pagina e' il cuore del servizio. Essa verifica se sia possibile 
+promuovere l'utente, mostra categorie, domande e sondaggi di interesse;
+permette la navigazione verso altre pagine per rispondere,modificare, 
+indirizzare al proprio profilo -->
+
 <?php 
    session_start();     	
 ?>
@@ -93,7 +98,7 @@
 										             FROM topic1
 													 WHERE idd='$iden'";
 									    $query_c=pg_query($dbconn,$querycateg);										
-										if($query_c)
+										if($query_c)//questa ulteriore query serve per vedere se una stessa domanda si riferisce a piu topic, in quel caso non si visualizza un duplicato della stessa con diversa categoria, ma una concatenazione di categorie in un'unica domanda
 										{
 											   for($i=0; $i<pg_num_rows($query_c)-1; $i++)
 											   {

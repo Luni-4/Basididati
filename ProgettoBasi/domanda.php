@@ -1,3 +1,4 @@
+<!--Pagina per l'inserimento nel database della domanda aperta oppure per la modifica di una propria domanda (chiusa/aperta) -->
 <?php //pagina di controllo
 	session_start();
 	require_once "dbopen.php";

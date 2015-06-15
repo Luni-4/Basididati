@@ -1,3 +1,4 @@
+<!-- Pagina per il controllo della correttezza dei dati inseriti, campi che non possono essere verificati solo con "required" -->
 <?php 
   session_start();
   

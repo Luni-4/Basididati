@@ -1,3 +1,4 @@
+<!-- Pagina di registrazione, creazione di un nuovo utente -->
 <!DOCTYPE html>
 <html>
 	<head>

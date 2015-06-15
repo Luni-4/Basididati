@@ -1,3 +1,4 @@
+<!--Pagina per visualizzare maggiori dettagli della domanda selezionata, rispondere, visualizzare le risposte coi voti ed eventualmente votare -->
 <?php
  session_start();   
  ?>

@@ -1,3 +1,4 @@
+<!-- gestione degli errore e del loro messaggio per la pagina homePage.php-->
 <?php
    /* Lista errori: 
       0 ---> Utente non trovato o non corretto

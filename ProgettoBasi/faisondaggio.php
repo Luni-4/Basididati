@@ -1,3 +1,4 @@
+<!-- Pagina che permette di porre sondaggi, visualizzare e modificare i propri esistenti chiudendoli-->
 <?php
 	session_start(); 
  ?>
@@ -31,7 +32,7 @@
 			    Seleziona categoria: Usa ctrl + left mouse per una selezione multipla!  <br>
 			    <select name="categoria[]" class="style" multiple="multiple" tabindex="1" required>						   
 						   <?php
-						      require_once "dbopen.php";
+						      require_once "dbopen.php";//e' possibile la scelta multipla dei topic
 							  $i=0;
 							  $querydomanda="SELECT nomec
 											 FROM preferenza

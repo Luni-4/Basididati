@@ -1,3 +1,4 @@
+<!--Pagina che permette di vedere chi ha dato una risposta a un sondaggio preciso e di indirizzare alla pagina personale -->
 <?php
  session_start();
 ?>
