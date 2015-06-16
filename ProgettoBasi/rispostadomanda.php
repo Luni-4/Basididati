@@ -81,7 +81,7 @@
 									print "<p style=\"background-color:white\">";
 									$idr=$row["idr"];
 									print "<b>Data: </b>".$row["datar"];
-									print "<b>Risposta: </b>".$row["testorisp"];
+									print "<b> Risposta: </b>".$row["testorisp"];
 									$query_voto="SELECT COUNT(*) AS votonegativo
 												 FROM voto
 												 WHERE idr='$idr'
@@ -110,15 +110,21 @@
 									}else
 										exit("Errore nella query: ".pg_last_error($dbconn));
 									
-									print "<b>Utente: </b>";
+									print "<b> Utente: </b>";
+									
 									
 									if($row["anonimo"]=='f')
-										print $row["nome"];
+										$nome="<a href=\"profiloUtente.php?utente=$row[nome]\">$row[nome]</a>";
 									else 
-										print "anonimo ";
+										$nome="Anonimo ";
 									
-									print "<b>TotPositivi: ".$votopositivo."</b> "."<b><a href=\"voto.php?voto=positivo&idr=$row[idr]\"> VotaPositivo!</a></b>";
-									print "<b>TotNegativi: ".$votonegativo."</b> "."<b><a href=\"voto.php?voto=negativo&idr=$row[idr]\"> VotaNegativo!</a></b>";
+									if($row["nome"] == $_SESSION["user"])
+											$nome="<a href=\"profiloUtente.php\">Tu</a>";
+										
+									print $nome;
+									
+									print "<b> TotPositivi: ".$votopositivo."</b> "."<b><a href=\"voto.php?voto=positivo&idr=$row[idr]\"> VotaPositivo!</a></b>";
+									print "<b> TotNegativi: ".$votonegativo."</b> "."<b><a href=\"voto.php?voto=negativo&idr=$row[idr]\"> VotaNegativo!</a></b>";
 									print "</p>";
 								}
 							}

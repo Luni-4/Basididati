@@ -35,7 +35,7 @@ indirizzare al proprio profilo -->
 				<ul>
 					<li>Categoria
 						<ul>
-							<li class="current-menu-item"><a href="withinTheService.php?sceltacategoria=tutti">Tutti</a></li>
+							<li class="current-menu-item"><a href="withinTheService.php">Tutti</a></li>
 						   <?php
 							  require_once "dbopen.php";	
 							  $user=$_SESSION["user"];
