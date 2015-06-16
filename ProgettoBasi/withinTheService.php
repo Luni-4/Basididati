@@ -217,7 +217,7 @@ indirizzare al proprio profilo -->
 													  {
 														 $row=pg_fetch_assoc($query_res);
 														 $numrisposte=$row["numrisp"];
-														 if($numrisposte>=5 && $votipositivi>=$votinegativi)
+														 if($numrisposte>5 && $votipositivi>=$votinegativi)
 														 {
 															$query="UPDATE utente SET tipo='vip' WHERE nome='$user'";  //promozione a vip
 															$query_res=pg_query($dbconn,$query);
