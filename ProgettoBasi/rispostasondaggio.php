@@ -86,7 +86,8 @@
 												$querysondaggio="SELECT testorisp, count(testorisp) AS p
 																 FROM rispostapredefinita
 																 WHERE idd='$idd'
-																 GROUP BY testorisp";
+																 GROUP BY testorisp
+																 ORDER BY p DESC";
 												$query=pg_query($dbconn,$querysondaggio);			
 												if($query)
 												{
