@@ -69,7 +69,7 @@
 							$querydomanda="SELECT anonimo,nome,datar,testorisp,idr
 											FROM rispostaperta 
 											WHERE idd='$idd'
-											ORDER BY datar";
+											ORDER BY datar DESC";//visualizzo dalla piu recente alla piu vecchia
 							$query=pg_query($dbconn,$querydomanda);
 							if($query)
 							{
