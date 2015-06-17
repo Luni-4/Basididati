@@ -178,10 +178,9 @@ indirizzare al proprio profilo -->
 									$nomeuser=$row["nome"];
 									
 									if($typeuser=="vip")									
-										print"Ciao ".$row["nome"]." !<br> Utente di tipo: ".$typeuser;									
+										print"Ciao ".$row["nome"]."!<br> Utente di tipo: ".$typeuser;									
 									else
 									{
-										print"Ciao ".$row["nome"]." !<br> Utente di tipo: ".$typeuser;
 										//query per aggiornare il profilo dell'utente
 										$query="SELECT voto,COUNT(*) AS votopositivo
 												FROM voto JOIN rispostaperta ON voto.idr=rispostaperta.idr
@@ -222,8 +221,12 @@ indirizzare al proprio profilo -->
 															$query="UPDATE utente SET tipo='vip' WHERE nome='$user'";  //promozione a vip
 															$query_res=pg_query($dbconn,$query);
 															if(!$query_res)												
-																exit("Errore nella query: ".pg_last_error($dbconn));													             
-														 }	
+																exit("Errore nella query: ".pg_last_error($dbconn));
+                                                            															
+                                                            print "Ciao $nomeuser!<br> Utente di tipo: vip";
+														 }
+														 else
+															 print "Ciao $nomeuser!<br> Utente di tipo: ".$typeuser;
 													  }
 													  else 
 														 exit("Errore nella query: ".pg_last_error($dbconn));
