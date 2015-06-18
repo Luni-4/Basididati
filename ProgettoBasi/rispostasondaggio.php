@@ -87,7 +87,7 @@
 																 FROM rispostapredefinita
 																 WHERE idd='$idd'
 																 GROUP BY testorisp
-																 ORDER BY p DESC";
+																 ORDER BY p DESC"; // ordinamento dal maggior numero di voti al minore
 												$query=pg_query($dbconn,$querysondaggio);			
 												if($query)
 												{
