@@ -86,7 +86,8 @@ CREATE TABLE Rispostapredefinita
 				ON UPDATE CASCADE,
 		idd integer NOT NULL REFERENCES Sondaggio(idd)
 	                     ON DELETE CASCADE,			 
-		 PRIMARY KEY(idr)
+		 PRIMARY KEY(idr),
+		 UNIQUE (nome,idd)
 		);
 		
 CREATE TABLE Rispostaperta
