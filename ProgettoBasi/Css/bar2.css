@@ -141,9 +141,3 @@ position:absolute;/*devo scrivere position absolute per poter mettere poi left e
 ul {
     list-style-type: none;
 }
-ul li{
-	background-image: url(../Immagini/colorcircle.png);
-    background-repeat: no-repeat;
-	background-position: 170px 0px;
-	background-size: 20px 20px;
-}
