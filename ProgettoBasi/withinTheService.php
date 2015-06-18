@@ -83,7 +83,8 @@ indirizzare al proprio profilo -->
 								//query per trovare le domande
 								$querydomanda="SELECT DISTINCT nome,titolo,testo,datad,idd
 											   FROM domandaperta NATURAL JOIN topic1
-											   WHERE datad > CURRENT_TIMESTAMP - INTERVAL '7 days' AND topic1.nomec IN (SELECT nomec FROM preferenzaUtente)";   
+											   WHERE topic1.nomec IN (SELECT nomec FROM preferenzaUtente)
+											   ORDER BY datad DESC";   // dalle più recenti alle meno recenti
 								$query_res=pg_query($dbconn,$querydomanda);
 								
 								if($query_res)
@@ -124,7 +125,8 @@ indirizzare al proprio profilo -->
 								//query per visualizzare i sondaggi
 								$querysondaggio="SELECT DISTINCT nome,titolo,testo,datad,idd
 												 FROM sondaggio NATURAL JOIN topic2
-												 WHERE datad > CURRENT_TIMESTAMP - INTERVAL '7 days' AND topic2.nomec IN (SELECT nomec FROM preferenzaUtente)";
+												 WHERE topic2.nomec IN (SELECT nomec FROM preferenzaUtente)
+												 ORDER BY datad DESC";
 								$query_res=pg_query($dbconn,$querysondaggio);
 								if($query_res)
 								{
