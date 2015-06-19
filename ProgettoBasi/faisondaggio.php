@@ -33,7 +33,6 @@
 			    <select name="categoria[]" class="style" multiple="multiple" tabindex="1" required>						   
 						   <?php
 						      require_once "dbopen.php";//e' possibile la scelta multipla dei topic
-							  $i=0;
 							  $querydomanda="SELECT nomec
 											 FROM preferenza
 											 WHERE nome='$user'";
