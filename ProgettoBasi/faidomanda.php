@@ -25,15 +25,13 @@
 	   $user=$_SESSION["user"];	   
 	   if(isset($_GET["message"]))
 		 print "<h3 style=\"color:red\">".$_GET["message"]."</h3>";      
-	   else
-	   {
+	   
     ?>
 				<form action="domanda.php" method="POST">	     
 					Seleziona categoria: Usa ctrl + left mouse per una selezione multipla! <br>
 					<select name="categoria[]" class="style" multiple="multiple" tabindex="1" required>						   
 						   <?php
 						      require_once "dbopen.php";
-							  $i=0;
 							  $querydomanda="SELECT nomec
 											 FROM preferenza
 											 WHERE nome='$user'";
@@ -74,7 +72,7 @@
 				 }
 				 else
 					exit("Errore nella query: ".pg_last_error($dbconn));		
-	    }// messaggio	  
+	    	  
 			?>
 			</div>
 		</div>

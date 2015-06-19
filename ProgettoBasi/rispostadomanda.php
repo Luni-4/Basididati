@@ -22,12 +22,16 @@
 		<div class="utility_background">
 			<div class="ghost_utility">
 			<?php
-				 if(isset($_GET["message"]))
-				   print "<h3 style=\"color:red\">".$_GET["message"]."</h3>"; 	
+				 if(isset($_GET["message"]) && isset($_SESSION["idd"]))
+				 {
+				   print "<h3 style=\"color:red\">".$_GET["message"]."</h3>"; 		
+				   $idd=$_SESSION["idd"];
+				 }				   
 				 else
-				{  
+				 {				 
 						$_SESSION["idd"]=$_GET["idd"];
 						$idd= $_GET["idd"];
+				 }
 						
 						require_once "dbopen.php"; 
 						$querydomanda="SELECT datad, testo, imgurl,chiusa,imgtesto,nome,titolo 
@@ -134,7 +138,7 @@
 						}
 						else
 							exit("Errore nella query: ".pg_last_error($dbconn));
-			    }			
+			    			
 			?>
 			</div>
 		</div>
